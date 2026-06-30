@@ -1,0 +1,134 @@
+body {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at top left, rgba(201, 163, 95, 0.12), transparent 28%),
+    linear-gradient(180deg, #fffdf9 0%, #fff7ee 52%, #f8ecdf 100%);
+  color: var(--text);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--text-strong);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--gold-deep);
+}
+
+button {
+  border: 1px solid var(--gold);
+  background: linear-gradient(180deg, #d9b574 0%, #c39a53 100%);
+  color: #fffdfa;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 10px 24px rgba(159, 121, 51, 0.2);
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(159, 121, 51, 0.28);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  color: var(--text-strong);
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(201, 163, 95, 0.16);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--text-strong);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4vw, 4.3rem);
+}
+
+h2 {
+  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+}
+
+p {
+  line-height: 1.7;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page-shell,
+.checkout-page,
+.product-detail {
+  width: min(var(--max-width), calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.page-shell {
+  padding: 40px 0 64px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 26px;
+  width: min(1320px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 32px 0 64px;
+}
+
+.admin-content {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .product-detail,
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .page-shell,
+  .checkout-page,
+  .product-detail,
+  .admin-layout {
+    width: min(var(--max-width), calc(100% - 20px));
+  }
+}
+

@@ -1,0 +1,95 @@
+.product-filter {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+  max-width: 350px;
+  min-width: 300px;
+}
+
+.product-filter h3 {
+  margin: 0 0 25px;
+  font-size: 1.5rem;
+  color: #1e293b;
+  text-align: center;
+  position: relative;
+}
+
+.product-filter h3::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #2563eb;
+  border-radius: 20px;
+  position: absolute;
+  left: 50%;
+  bottom: -12px;
+  transform: translateX(-50%);
+}
+
+.product-filter .form-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.product-filter label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.product-filter select,
+.product-filter input {
+  padding: 13px 15px;
+  border: 1px solid #dbe2ea;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: 0.95rem;
+  transition: all 0.3s;
+}
+
+.product-filter select:focus,
+.product-filter input:focus {
+  outline: none;
+  border-color: #2563eb;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+}
+
+.product-filter__check {
+  margin: 25px 0;
+}
+
+.product-filter__check label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.product-filter__check input {
+  width: 18px;
+  height: 18px;
+  accent-color: #2563eb;
+}
+
+.product-filter button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.product-filter button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}

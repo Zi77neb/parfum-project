@@ -1,0 +1,113 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 40px;
+}
+
+.admin-page h1 {
+  margin-bottom: 35px;
+  color: #1e293b;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.admin-page hr {
+  border: none;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 40px 0;
+}
+
+.admin-page h2 {
+  margin-bottom: 25px;
+  color: #1e293b;
+  font-size: 1.5rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.admin-table thead {
+  background: #1e293b;
+  color: white;
+}
+
+.admin-table th {
+  padding: 18px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.admin-table td {
+  padding: 18px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.admin-table tbody tr {
+  transition: 0.3s;
+}
+
+.admin-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.admin-table td button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.admin-table td button:first-child {
+  background: #2563eb;
+  color: white;
+}
+
+.admin-table td button:first-child:hover {
+  background: #1d4ed8;
+}
+
+.admin-table__danger {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+.admin-table__danger:hover {
+  background: #dc2626 !important;
+}
+
+.admin-table td[colspan] {
+  text-align: center;
+  color: #64748b;
+  padding: 35px;
+}
+
+@media (max-width: 992px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-content {
+    padding: 25px;
+  }
+
+  .admin-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
