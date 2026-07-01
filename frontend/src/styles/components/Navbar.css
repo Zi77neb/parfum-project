@@ -1,100 +1,173 @@
-.site-nav {
-  background: #ffffff;
-  padding: 18px 7%;
+/* ==========================================================================
+   SITE HEADER / NAVBAR — LUXURY PRESTIGE
+   ========================================================================== */
+
+.site-header.site-header--solid {
+  font-family: 'Inter', sans-serif;
+  background: var(--theme-header, rgba(250, 248, 245, 0.82));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0 7%;
+  height: 84px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(197, 168, 105, 0.08);
+  box-shadow: var(--theme-shadow-header, 0 1px 0 0 rgba(28, 27, 25, 0.04));
   position: sticky;
   top: 0;
   z-index: 1000;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.site-nav__brand-link {
+/* Identité Visuelle Griffe de Luxe */
+.site-nav__brand-link.font-display {
+  font-family: 'Cinzel', 'Playfair Display', serif;
   text-decoration: none;
-  color: #2563eb;
-  font-size: 1.8rem;
-  font-weight: 700;
+  color: var(--brand-charcoal, #1c1b19);
+  font-size: 1.45rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
+.site-nav__brand-link.font-display:hover {
+  color: #c5a869; /* --brand-gold */
+}
+
+/* Zone des Liens Éditoriaux */
 .site-nav__links {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 35px;
 }
 
-.site-nav__links a {
+/* Liens du Manifeste de Style nav-link */
+.site-nav__links .nav-link {
   text-decoration: none;
-  color: #334155;
+  color: var(--theme-text, #1c1b19);
   font-weight: 500;
+  font-size: 14.5px;
+  letter-spacing: 0.04em;
   position: relative;
-  transition: all 0.3s ease;
+  padding: 8px 0;
+  transition: color 0.2s ease;
 }
 
-.site-nav__links a:hover {
-  color: #2563eb;
+.site-nav__links .nav-link:hover,
+.site-nav__links .nav-link.active {
+  color: var(--brand-gold, #c5a869);
 }
 
-.site-nav__links a::after {
+/* Trait d'or brossé coulissant en dessous (Effet de style) */
+.site-nav__links .nav-link::after {
   content: "";
   position: absolute;
-  width: 0;
-  height: 2px;
-  background: #2563eb;
+  left: 50%;
+  right: 50%;
+  bottom: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, #a8894a 0%, #c5a869 50%, #a8894a 100%);
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-nav__links .nav-link:hover::after,
+.site-nav__links .nav-link.active::after {
   left: 0;
-  bottom: -5px;
-  transition: width 0.3s;
+  right: 0;
 }
 
-.site-nav__links a:hover::after {
-  width: 100%;
-}
-
+/* Module Panier Client */
 .site-nav__cart {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.site-nav__cart-count {
-  background: #ef4444;
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
+/* Notification de quantité joaillière (editorial-pill--gold) */
+.site-nav__cart-count.editorial-pill--gold {
+  display: inline-flex;
   align-items: center;
-  font-size: 0.8rem;
+  justify-content: center;
+  background: rgba(197, 168, 105, 0.14);
+  color: var(--brand-charcoal, #1c1b19);
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
   font-weight: 600;
+  border-radius: 999px; /* Forme de perle pure */
+  box-shadow: 0 4px 12px -4px rgba(197, 168, 105, 0.4);
 }
 
-.site-nav button {
-  background: #2563eb;
-  color: white;
+/* Boutons - Déclinaisons de Ton En-tête */
+/* 1. Bouton Plat Silhouette (header-btn-outline) */
+.site-nav .header-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 20px;
   border: none;
-  padding: 10px 18px;
-  border-radius: 10px;
-  cursor: pointer;
+  background: rgba(28, 27, 25, 0.04); /* btn-secondary-flat style */
+  color: var(--brand-gold, #c5a869);
+  font-size: 12.5px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.site-nav button:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
+.site-nav .header-btn-outline:hover {
+  background: rgba(197, 168, 105, 0.12);
+  color: var(--brand-charcoal, #1c1b19);
+  transform: translateY(-1px);
 }
 
+/* 2. Bouton Discret Textuel (header-btn-ghost) */
+.site-nav .header-btn-ghost.logout-btn {
+  background: transparent;
+  border: none;
+  color: var(--theme-text, #1c1b19);
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  transition: color 0.2s ease;
+}
+
+.site-nav .header-btn-ghost.logout-btn:hover {
+  color: #be123c; /* Teinte lie-de-vin d'avertissement au survol */
+}
+
+/* Adaptation Responsive Minimaliste */
 @media (max-width: 900px) {
-  .site-nav {
+  .site-header.site-header--solid {
     flex-direction: column;
-    gap: 20px;
-    padding: 20px;
+    height: auto;
+    padding: 20px 24px;
+    gap: 16px;
+  }
+
+  .site-nav__brand-link.font-display {
+    font-size: 1.25rem;
+    letter-spacing: 0.12em;
   }
 
   .site-nav__links {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    width: 100%;
+  }
+  
+  .site-nav .header-btn-outline {
+    width: 100%;
+    height: 40px;
+    margin-top: 4px;
   }
 }

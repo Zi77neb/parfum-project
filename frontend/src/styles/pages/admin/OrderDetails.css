@@ -1,154 +1,323 @@
-.admin-layout {
+/* ==========================================================================
+   ADMIN PAGE — ORDER DETAILS (CONSOLE DE LOGISTIQUE PRIVÉE)
+   ========================================================================== */
+
+/* Implémentation du conteneur global admin-shell */
+.admin-layout.admin-shell {
   display: flex;
   min-height: 100vh;
-  background: #f8fafc;
+  background: #faf8f5 !important; /* Fond mat neutre officiel */
+  color: #1c1b19; /* Brand charcoal */
+  font-family: 'Inter', sans-serif;
 }
 
 .admin-content {
   flex: 1;
-  padding: 40px;
+  padding: 50px 60px;
+  min-width: 0;
 }
 
-.admin-page h1 {
-  margin-bottom: 30px;
-  color: #1e293b;
-  font-size: 2rem;
+.admin-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zone d'en-tête technique épurée (.admin-page-head) */
+.admin-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
+  margin-bottom: 35px;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.08); /* Ligne fine affûtée */
+}
+
+.admin-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #c5a869;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.admin-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 1.6rem;
   font-weight: 700;
+  color: #1c1b19;
+  letter-spacing: 0.04em;
+  line-height: tight;
+  margin: 0;
 }
 
-.order-card {
+.admin-subtitle {
+  font-size: 13.5px;
+  color: rgba(28, 27, 25, 0.45);
+  margin: 8px 0 0 0;
+}
+
+/* Enveloppe de panneau d'administration épurée (.admin-panel) */
+.order-card.admin-panel {
   background: #ffffff;
-  border-radius: 20px;
-  padding: 30px;
+  border: 1px solid rgba(28, 27, 25, 0.06);
+  border-radius: 0px !important; /* Lignes coupées géométriques strictes */
+  padding: 40px;
   margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 40px rgba(28, 27, 25, 0.03);
 }
 
-.order-card h2 {
-  margin-top: 0;
+.admin-section-subtitle.font-display {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1c1b19;
+  margin: 0 0 16px 0;
+  text-align: left;
+}
+
+.gold-divider-subtle {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(197, 168, 105, 0.3) 0%, transparent 80%);
   margin-bottom: 25px;
-  color: #1e293b;
-  font-size: 1.4rem;
 }
 
+/* Grille de fiches statistiques (.order-info-grid) */
 .order-info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  margin-bottom: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 35px;
 }
 
-.order-info-grid div {
-  background: #f8fafc;
-  border-radius: 15px;
+/* Tuile de spécification épurée d'après le manifeste (.admin-stat) */
+.order-info-grid .admin-stat {
+  background: #faf8f5 !important; /* Teinte ivoire feutrée */
+  border: 1px solid #e6e2d4 !important;
+  border-radius: 0px !important;
   padding: 20px;
-  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
-.order-info-grid span {
+/* Libellés Or Sablé (.label-gold) */
+.admin-stat .label-gold,
+.fleet-filter-group .label-gold {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7e6128;
+  margin-bottom: 8px;
   display: block;
-  color: #64748b;
-  font-size: 0.9rem;
-  margin-bottom: 10px;
 }
 
-.order-info-grid strong {
-  color: #1e293b;
-  font-size: 1.1rem;
+.admin-stat-value {
+  color: #1c1b19;
+  font-size: 14px;
+  font-weight: 500;
 }
 
+/* Chiffre d'or dégradé exclusif pour le montant */
+.admin-stat-value.text-gold-gradient {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a8894a 0%, #c5a869 35%, #d4bc88 55%, #c5a869 75%, #a8894a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Badge de statut pour l'administration (.admin-status-badge) */
+.admin-status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: rgba(28, 27, 25, 0.05);
+  color: rgba(28, 27, 25, 0.6);
+}
+
+/* Sélecteur de statut Luxe (.input-luxury) */
 .order-details__status {
   display: flex;
   justify-content: flex-end;
 }
 
-.order-details__status select {
-  padding: 12px 18px;
-  border: 1px solid #dbe2ea;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #334155;
-  font-size: 0.95rem;
+.fleet-filter-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.fleet-filter-select.input-luxury {
+  padding: 10px 30px 10px 12px;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e2e2 !important;
+  border-radius: 0px !important;
+  font-size: 13.5px;
+  color: #1c1b19;
   cursor: pointer;
-  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c5a869' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  transition: all 150ms ease;
 }
 
-.order-details__status select:focus {
+.fleet-filter-select.input-luxury:hover {
+  border-color: #c5a869 !important;
+}
+
+.fleet-filter-select.input-luxury:focus {
   outline: none;
-  border-color: #2563eb;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+  border-color: #c5a869 !important;
+  box-shadow: 0 0 0 2px rgba(197, 168, 105, 0.18) !important;
 }
 
-.admin-table {
+/* ===== TABLE D'ADMINISTRATION LUXE ===== */
+.admin-shell table.admin-table {
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
-  border-radius: 15px;
+  background: #ffffff;
+  border: 1px solid #e6e2d4;
+  font-size: 13.5px;
 }
 
-.admin-table thead {
-  background: #1e293b;
-  color: #ffffff;
+.admin-shell table thead {
+  background: #fafaf4 !important; /* Gris perle épuré th */
 }
 
-.admin-table th {
-  padding: 18px;
+.admin-shell table thead th {
   text-align: left;
+  padding: 14px 18px !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: #7e7e7e !important;
+  border-bottom: 1px solid #e6e2d4 !important;
+}
+
+.admin-shell table tbody td {
+  padding: 14px 18px !important;
+  border-top: 1px solid #f0ecdf !important;
+  border-bottom: none;
+  color: #2b2b2b;
+  vertical-align: middle;
+}
+
+.admin-shell table tbody tr:hover {
+  background: rgba(201, 162, 74, 0.05) !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+/* Zone actions de bas de page (Bouton Retour) */
+.order-details__actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* Bouton Outline Or Plat (.btn-outline-gold) */
+.admin-shell .btn-outline-gold.order-details__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 22px;
+  font-size: 13px;
   font-weight: 600;
-}
-
-.admin-table td {
-  padding: 18px;
-  border-bottom: 1px solid #edf2f7;
-  color: #475569;
-}
-
-.admin-table tbody tr {
-  transition: all 0.3s ease;
-}
-
-.admin-table tbody tr:hover {
-  background: #f8fafc;
-}
-
-.order-details__back {
-  border: none;
-  background: #2563eb;
-  color: #ffffff;
-  padding: 14px 30px;
-  border-radius: 12px;
-  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: #ffffff !important;
+  color: #2b2b2b !important;
+  border: 1px solid #e2e2e2 !important;
+  border-radius: 0px !important;
   cursor: pointer;
-  transition: all 0.3s ease;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: all 150ms ease;
 }
 
-.order-details__back:hover {
-  background: #1d4ed8;
-  transform: translateY(-2px);
+.admin-shell .btn-outline-gold.order-details__back:hover {
+  border-color: #c9a24a !important;
+  color: #9a6f2e !important;
+  background: #fafaf6 !important;
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN — ALIGNEMENT FLUIDE
+   ========================================================================== */
 
 @media (max-width: 992px) {
-  .admin-layout {
+  .admin-layout.admin-shell {
     flex-direction: column;
   }
 
   .admin-content {
-    padding: 25px;
+    padding: 40px 24px;
   }
 
-  .admin-table {
-    display: block;
+  .order-card.admin-panel {
+    padding: 24px;
     overflow-x: auto;
-    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-shell table.admin-table {
+    min-width: 640px; /* Force l'apparition du scroll horizontal sans briser la grille */
   }
 
   .order-details__status {
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 10px;
+  }
+  
+  .fleet-filter-group,
+  .fleet-filter-select.input-luxury {
+    width: 100%;
   }
 
-  .order-details__back {
+  .order-details__actions,
+  .admin-shell .btn-outline-gold.order-details__back {
     width: 100%;
-    margin-top: 20px;
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+
+  .admin-title {
+    font-size: 1.35rem;
+  }
+
+  .order-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-shell table thead th,
+  .admin-shell table tbody td {
+    padding: 12px 14px !important;
   }
 }

@@ -1,3 +1,4 @@
+// CategoryForm.jsx
 import React, { useState, useEffect } from "react";
 import "../../styles/components/CategoryForm.css";
 
@@ -60,12 +61,6 @@ const CategoryForm = ({
 
       const data = await response.json();
 
-      alert(
-        category
-          ? "Categorie modifiee avec succes."
-          : "Categorie creee avec succes."
-      );
-
       setForm({
         name: "",
         description: "",
@@ -80,42 +75,49 @@ const CategoryForm = ({
   };
 
   return (
-    <form className="category-form" onSubmit={handleSubmit}>
-      <h3>{category ? "Modifier" : "Ajouter"} une categorie</h3>
+    <div className="auth-shell">
+      <form className="category-form auth-form-panel" onSubmit={handleSubmit}>
+        <h3 className="auth-heading">{category ? "Modifier" : "Créer"} une catégorie</h3>
+        <p className="auth-subheading">Gestion éditoriale du catalogue de parfums</p>
 
-      <div className="form-field">
-        <label>Nom</label>
-        <input
-          type="text"
-          name="name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-      </div>
+        <div className="form-field">
+          <label className="auth-label">Nom de la catégorie</label>
+          <input
+            className="auth-input"
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Ex: Épices & Boisés, Collection Privée..."
+            required
+          />
+        </div>
 
-      <div className="form-field">
-        <label>Description</label>
-        <textarea
-          name="description"
-          rows="4"
-          value={form.description}
-          onChange={handleChange}
-        />
-      </div>
+        <div className="form-field">
+          <label className="auth-label">Description ou Note Olfactive</label>
+          <textarea
+            className="auth-input"
+            name="description"
+            rows="5"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Décrivez l'univers olfactif de cette catégorie..."
+          />
+        </div>
 
-      <div className="category-form__actions">
-        <button type="submit" disabled={loading}>
-          {loading ? "Enregistrement..." : category ? "Modifier" : "Ajouter"}
-        </button>
-
-        {category && (
-          <button type="button" onClick={onCancel}>
-            Annuler
+        <div className="category-form__actions">
+          {category && (
+            <button type="button" className="btn-outline-gold" onClick={onCancel}>
+              Annuler
+            </button>
+          )}
+          
+          <button type="submit" className="auth-btn" disabled={loading}>
+            {loading ? "Enregistrement..." : category ? "Enregistrer les modifications" : "Créer la catégorie"}
           </button>
-        )}
-      </div>
-    </form>
+        </div>
+      </form>
+    </div>
   );
 };
 

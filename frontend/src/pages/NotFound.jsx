@@ -4,24 +4,26 @@ import "../styles/pages/NotFound.css";
 
 const NotFound = () => {
   return (
-    <div className="not-found">
-      <div className="not-found__card">
-        <span className="not-found__code">
+    <div className="not-found section-dark noise-overlay">
+      <div className="not-found__card glass-dark">
+        {/* Numéro géant ornemental en arrière-plan avec effet stroke */}
+        <span className="not-found__code text-stroke-gold">
           404
         </span>
 
-        <h1>Page introuvable</h1>
+        <span className="luxury-section-label">Note Volatile</span>
+        <h1 className="font-display">Sillage Égaré</h1>
 
-        <p>
-          La page que vous recherchez
-          n'existe pas ou a été déplacée.
+        <p className="footer-brand-text">
+          La fragrance ou l'atelier que vous tentez de rejoindre n'est plus répertorié ou s'est temporairement évaporé.
         </p>
 
         <Link
           to="/"
-          className="not-found__button"
+          className="luxury-cta shine-on-hover not-found__button"
         >
-          Retour à l'accueil
+          <span className="luxury-cta__inner">Retourner à la Maison</span>
+          <span className="luxury-cta__shine"></span>
         </Link>
       </div>
     </div>

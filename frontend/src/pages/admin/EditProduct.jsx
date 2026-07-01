@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Sidebar from "../../components/admin/Sidebar";
@@ -46,17 +45,27 @@ const EditProduct = () => {
   };
 
   if (loading) {
-    return <Loader />;
+    return <Loader text="Ouverture du flaconnier..." />;
   }
 
   return (
-    <div className="admin-layout">
+    <div className="admin-layout admin-shell admin-motion">
       <Sidebar />
 
       <div className="admin-content admin-page">
-        <h1>Modifier le produit</h1>
+        {/* En-tête de page officiel issu du manifeste Admin Shell */}
+        <div className="admin-page-head">
+          <div>
+            <span className="admin-eyebrow">Catalogue & Éditions</span>
+            <h1 className="admin-title">MODIFIER LA FRAGRANCE</h1>
+            <p className="admin-subtitle">
+              Ajustez les déclinaisons de volumes, rectifiez les prix ou mettez à jour la description olfactive du flacon sélectionné.
+            </p>
+          </div>
+        </div>
 
-        <div className="admin-card">
+        {/* Panneau de saisie plat d'administration (.admin-panel) */}
+        <div className="admin-card admin-panel">
           {product && (
             <ProductForm
               product={product}
@@ -71,4 +80,3 @@ const EditProduct = () => {
 };
 
 export default EditProduct;
-

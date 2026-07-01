@@ -7,79 +7,69 @@ const OrderSuccess = () => {
   const order = location.state?.order;
 
   return (
-    <div className="order-success">
-      <div className="order-success__container">
-        <div className="order-success__icon">
+    <div className="order-success marble-bg noise-overlay">
+      <div className="order-success__container surface-panel">
+        <div className="order-success__icon pulse-ring">
           ✓
         </div>
 
-        <h1>
-          Commande enregistrée avec succès
-        </h1>
+        <span className="luxury-section-label animate-fade-in-up">Confirmation</span>
+        <h1 className="section-title">Commande Enregistrée</h1>
+        <div className="gold-divider-center"></div>
 
-        <p className="order-success__message">
-          Merci pour votre commande. Nous
-          avons bien reçu votre demande.
+        <p className="order-success__message footer-brand-text">
+          Votre demande a été transmise à nos artisans parfumeurs. Un message récapitulatif contenant les détails de votre sillage privé vous a été envoyé.
         </p>
 
         {order && (
-          <div className="order-success__card">
+          <div className="order-success__card surface-block">
             <div className="order-success__row">
-              <span>Numéro de commande</span>
-              <strong>#{order.id}</strong>
+              <span className="label-gold">Numéro de pièce</span>
+              <strong className="tabular-nums">#{order.id}</strong>
             </div>
 
             <div className="order-success__row">
-              <span>Date</span>
-
-              <strong>
-                {new Date(
-                  order.orderDate
-                ).toLocaleString()}
+              <span className="label-gold">Date de réservation</span>
+              <strong className="tabular-nums">
+                {new Date(order.orderDate).toLocaleString()}
               </strong>
             </div>
 
-            <div className="order-success__row">
-              <span>Statut</span>
-              <strong>{order.status}</strong>
+            <div className="order-success__row align-center">
+              <span className="label-gold">Statut de l'Atelier</span>
+              <span className="editorial-pill editorial-pill--gold">
+                {order.status}
+              </span>
             </div>
 
-            <div className="order-success__row">
-              <span>Total</span>
-              <strong>
+            <div className="order-success__row total-luxury-row">
+              <span className="label-gold label-total">Montant de la Sélection</span>
+              <strong className="text-gold-gradient total-value tabular-nums">
                 {order.totalPrice} DH
               </strong>
             </div>
 
-            <h3>
-              Produits commandés
-            </h3>
+            <h3 className="order-products-title font-display">Flacons Réservés</h3>
+            <div className="order-products-divider"></div>
 
             <div className="order-products">
               {order.items?.map((item) => (
                 <div
                   key={item.id}
-                  className="order-product"
+                  className="order-product surface-card"
                 >
-                  <h4>
-                    {item.productName}
-                  </h4>
+                  <div className="order-product__header">
+                    <h4 className="font-display">{item.productName}</h4>
+                    <span className="order-product__subtotal tabular-nums">
+                      {item.subtotal} DH
+                    </span>
+                  </div>
 
-                  <p>
-                    Taille : {item.size}
-                  </p>
-
-                  <p>
-                    Quantité :
-                    {" "}
-                    {item.quantity}
-                  </p>
-
-                  <p>
-                    Sous-total :
-                    {" "}
-                    {item.subtotal} DH
-                  </p>
+                  <div className="order-product__specs">
+                    <p className="spec-item">Volume : <strong>{item.size}</strong></p>
+                    <div className="spec-dot-separator"></div>
+                    <p className="spec-item">Quantité : <strong className="tabular-nums">{item.quantity}</strong></p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -89,16 +79,16 @@ const OrderSuccess = () => {
         <div className="order-success__actions">
           <Link
             to="/"
-            className="order-success__button"
+            className="btn-dark order-success__button"
           >
-            Retour à l'accueil
+            Retourner à la Maison
           </Link>
 
           <Link
             to="/products"
-            className="order-success__button order-success__button--gold"
+            className="btn-outline-gold order-success__button"
           >
-            Continuer les achats
+            Continuer les Achats
           </Link>
         </div>
       </div>

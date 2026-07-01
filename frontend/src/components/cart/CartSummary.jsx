@@ -25,21 +25,29 @@ const CartSummary = ({ items = [] }) => {
   };
 
   return (
-    <div className="cart-summary">
-      <h2>Résumé du panier</h2>
+    <div className="cart-summary glass-gold noise-overlay">
+      <h2 className="cart-summary__title">Votre Sélection</h2>
+      <div className="cart-summary__divider"></div>
 
       <div className="cart-summary__row">
-        <span>Articles</span>
-        <strong>{totalItems}</strong>
+        <span className="summary-label">Nombre d'articles</span>
+        <strong className="summary-value tabular-nums">{totalItems}</strong>
       </div>
 
-      <div className="cart-summary__row">
-        <span>Total</span>
-        <strong>{total.toFixed(2)} DH</strong>
+      <div className="cart-summary__row total-row">
+        <span className="summary-label main-total">Montant Total</span>
+        <strong className="summary-value final-price text-gold-gradient">{total.toFixed(2)} DH</strong>
       </div>
 
-      <button onClick={handleCheckout}>
-        Passer la commande
+      <button 
+        className="luxury-cta shine-on-hover" 
+        onClick={handleCheckout}
+        disabled={items.length === 0}
+      >
+        <span className="luxury-cta__inner">
+          Passer à la Caisse
+        </span>
+        <span className="luxury-cta__shine"></span>
       </button>
     </div>
   );

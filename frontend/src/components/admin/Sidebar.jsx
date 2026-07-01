@@ -9,29 +9,28 @@ const Sidebar = () => {
     { label: "Dashboard", path: "/admin" },
     { label: "Produits", path: "/admin/products" },
     { label: "Ajouter un produit", path: "/admin/products/add" },
-    { label: "Categories", path: "/admin/categories" },
+    { label: "Catégories", path: "/admin/categories" },
     { label: "Commandes", path: "/admin/orders" },
   ];
 
   return (
     <aside className="admin-sidebar">
-      <h2>Administration</h2>
+      <h2 className="admin-sidebar-title">Maison des Parfums</h2>
 
-      <nav>
-        {links.map((link) => (
-          <div key={link.path} className="admin-sidebar__item">
-            <Link
-              to={link.path}
-              className={
-                location.pathname === link.path
-                  ? "admin-sidebar__link admin-sidebar__link--active"
-                  : "admin-sidebar__link"
-              }
-            >
-              {link.label}
-            </Link>
-          </div>
-        ))}
+      <nav className="admin-sidebar-nav">
+        {links.map((link) => {
+          const isActive = location.pathname === link.path;
+          return (
+            <div key={link.path} className="admin-sidebar-item">
+              <Link
+                to={link.path}
+                className={isActive ? "admin-side-link is-active" : "admin-side-link"}
+              >
+                {link.label}
+              </Link>
+            </div>
+          );
+        })}
       </nav>
     </aside>
   );

@@ -1,88 +1,134 @@
+/* ==========================================================================
+   ADMIN SIDEBAR — LUXURY BOUTIQUE STYLE
+   ========================================================================== */
+
 .admin-sidebar {
   width: 280px;
   min-height: 100vh;
-  background: #1e293b;
-  color: #ffffff;
-  padding: 30px 20px;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  background: #1c1b19; /* Brand Charcoal officiel */
+  color: #faf8f5; /* Brand Ivory text */
+  padding: 40px 0px; /* Padding ajusté pour étendre la ligne de sélection active */
+  border-right: 1px solid rgba(197, 168, 105, 0.14); /* Discrète démarcation dorée */
+  box-shadow: 12px 0 48px rgba(0, 0, 0, 0.25);
+  font-family: 'Inter', sans-serif;
 }
 
-.admin-sidebar h2 {
+/* Titre Editorial */
+.admin-sidebar-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
   text-align: center;
-  margin-bottom: 40px;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #ffffff;
+  margin-bottom: 50px;
+  padding: 0 20px;
+  font-size: 1.35rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #faf8f5;
   position: relative;
 }
 
-.admin-sidebar h2::after {
+/* Ligne d'ornement or brossé sous le titre */
+.admin-sidebar-title::after {
   content: "";
-  width: 70px;
-  height: 4px;
-  background: #2563eb;
-  border-radius: 20px;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c5a869 50%, transparent);
   position: absolute;
   left: 50%;
-  bottom: -12px;
+  bottom: -16px;
   transform: translateX(-50%);
 }
 
-.admin-sidebar nav {
+.admin-sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 }
 
-.admin-sidebar__item {
+.admin-sidebar-item {
   width: 100%;
 }
 
-.admin-sidebar__link {
+/* Liens du Menu — Transitions Éditoriales */
+.admin-side-link {
   display: block;
   text-decoration: none;
-  color: #cbd5e1;
-  padding: 15px 20px;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  color: rgba(250, 248, 245, 0.62);
+  padding: 14px 28px;
+  font-size: 13.5px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+  border-left: 3px solid transparent;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1); /* admin-motion */
 }
 
-.admin-sidebar__link:hover {
-  background: rgba(37, 99, 235, 0.15);
-  color: #ffffff;
-  transform: translateX(5px);
+/* Hover Épuré */
+.admin-side-link:hover {
+  color: #c5a869; /* Or brossé */
+  background: rgba(255, 255, 255, 0.04);
+  padding-left: 34px; /* Décalage fluide et subtil */
 }
 
-.admin-sidebar__link--active {
-  background: #2563eb;
-  color: #ffffff;
-  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4);
+/* État Actif VIP / Admin Classique */
+.admin-side-link.is-active {
+  color: #c5a869;
+  background: rgba(197, 168, 105, 0.08); /* Teinte d'or translucide */
+  border-left-color: #c5a869; /* Marqueur de ligne doré net */
+  font-weight: 600;
+  padding-left: 32px;
 }
 
-.admin-sidebar__link--active:hover {
-  transform: none;
+.admin-side-link.is-active:hover {
+  padding-left: 32px; /* Immobilise le décalage sur l'élément déjà actif */
+  background: rgba(197, 168, 105, 0.08);
 }
 
+/* Responsive — Passage en Barre de Navigation Supérieure Horizontale */
 @media (max-width: 900px) {
   .admin-sidebar {
     width: 100%;
     min-height: auto;
-    padding: 20px;
+    padding: 25px 15px;
+    border-right: none;
+    border-bottom: 1px solid rgba(197, 168, 105, 0.14);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   }
 
-  .admin-sidebar nav {
+  .admin-sidebar-title {
+    margin-bottom: 30px;
+    font-size: 1.15rem;
+  }
+
+  .admin-sidebar-nav {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 8px;
   }
 
-  .admin-sidebar__item {
+  .admin-sidebar-item {
     width: auto;
   }
 
-  .admin-sidebar__link {
-    padding: 12px 18px;
+  .admin-side-link {
+    padding: 10px 16px;
+    font-size: 12.5px;
+    border-left: none;
+    border-bottom: 2px solid transparent; /* Aligné sur l'axe horizontal */
+  }
+
+  .admin-side-link:hover {
+    padding-left: 16px;
+    border-bottom-color: rgba(197, 168, 105, 0.45);
+  }
+
+  .admin-side-link.is-active {
+    padding-left: 16px;
+    border-left-color: transparent;
+    border-bottom-color: #c5a869;
+  }
+  
+  .admin-side-link.is-active:hover {
+    padding-left: 16px;
   }
 }

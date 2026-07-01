@@ -1,76 +1,194 @@
-.cart-summary {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+/* ==========================================================================
+   CART SUMMARY — DE L'ESTHÉTIQUE TECH AU PRESTIGE ÉDITORIAL
+   ========================================================================== */
+
+.cart-summary.glass-gold {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.62) 0%,
+    rgba(250, 248, 245, 0.48) 100%
+  );
+  backdrop-filter: blur(24px) saturate(130%);
+  -webkit-backdrop-filter: blur(24px) saturate(130%);
+  border: none;
+  box-shadow: 0 24px 64px -32px rgba(28, 27, 25, 0.12); /* --theme-shadow-soft */
+  border-radius: 0px !important; /* Lignes architecturales droites */
+  padding: 40px 35px;
   position: sticky;
-  top: 20px;
+  top: 120px; /* S'ajuste idéalement sous ton en-tête de site */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.cart-summary h2 {
-  margin-top: 0;
-  margin-bottom: 30px;
-  color: #1e293b;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-align: center;
-  position: relative;
-}
-
-.cart-summary h2::after {
+/* Texture subtile effet grain de papier de soie (noise-overlay) */
+.cart-summary.noise-overlay::after {
   content: "";
-  width: 70px;
-  height: 4px;
-  background: #2563eb;
-  border-radius: 20px;
   position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
 }
 
+/* Titre de Section Typé Lookbook */
+.cart-summary__title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #1c1b19; /* --brand-charcoal */
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+
+/* Séparateur Or Sablé Évanescent */
+.cart-summary__divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(197, 168, 105, 0.28) 50%,
+    transparent 100%
+  );
+  margin: 25px 0;
+}
+
+/* Rangées de calcul épurées */
 .cart-summary__row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
-  border-bottom: 1px solid #e2e8f0;
-  color: #475569;
-  font-size: 1rem;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.06);
 }
 
-.cart-summary__row strong {
-  color: #1e293b;
-  font-size: 1.1rem;
+.cart-summary__row .summary-label {
+  color: rgba(28, 27, 25, 0.58); /* --theme-text-muted */
+  font-size: 13px;
+  letter-spacing: 0.02em;
 }
 
-.cart-summary button {
+.cart-summary__row .summary-value {
+  color: #1c1b19;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Ligne Spécifique du Total Principal */
+.cart-summary__row.total-row {
+  border-bottom: none;
+  padding-top: 24px;
+  padding-bottom: 10px;
+}
+
+.cart-summary__row .summary-label.main-total {
+  font-family: 'Cinzel', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #1c1b19;
+}
+
+/* Prix Or Dégradé Noble */
+.cart-summary__row .summary-value.final-price {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(
+    135deg,
+    #a8894a 0%,
+    #c5a869 35%,
+    #d4bc88 55%,
+    #c5a869 75%,
+    #a8894a 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Grand Bouton d'Achat Haute Parfumerie (luxury-cta) */
+.cart-summary .luxury-cta {
+  position: relative;
   width: 100%;
   margin-top: 30px;
-  padding: 15px;
+  height: 52px;
   border: none;
-  border-radius: 12px;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 1rem;
+  border-radius: 0px !important; /* Pas d'arrondi sur les CTA d'Exception */
+  background: #1c1b19; /* Noir de jais profond */
+  color: #faf8f5;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  isolation: isolate;
+  transition: all 600ms cubic-bezier(0.16, 1, 0.3, 1); /* --editorial-ease */
 }
 
-.cart-summary button:hover {
-  background: #1d4ed8;
+.cart-summary .luxury-cta:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 24px 56px -20px rgba(28, 27, 25, 0.45);
+  background: #252422;
 }
 
-.cart-summary button:active {
-  transform: scale(0.98);
+.cart-summary .luxury-cta:disabled {
+  opacity: 0.35;
+  background: #1c1b19;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+/* Animation de glissement textuel interne */
+.cart-summary .luxury-cta__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cart-summary .luxury-cta:hover:not(:disabled) .luxury-cta__inner {
+  transform: translateX(4px);
+}
+
+/* Effet Balayage Lumineux Céleste (Shine Sweep) */
+.cart-summary .luxury-cta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    transparent 100
+  );
+  transform: skewX(-18deg);
+  transition: left 900ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cart-summary .luxury-cta:hover:not(:disabled)::after {
+  left: 130%;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .cart-summary {
-    padding: 25px;
-    position: static;
+  .cart-summary.glass-gold {
+    padding: 30px 24px;
+    position: static; /* S'intègre naturellement à la suite de la liste sur mobile */
+    margin-top: 20px;
   }
 }

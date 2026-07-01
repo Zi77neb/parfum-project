@@ -1,34 +1,108 @@
+/* ==========================================================================
+   LOADER — DISTILLATION CINÉTIQUE HAUTE PARFUMERIE
+   ========================================================================== */
+
 .loader {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 50px 20px;
+  gap: 24px;
+  padding: 80px 20px;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
 }
 
-.loader__spinner {
-  width: 55px;
-  height: 55px;
-  border: 5px solid #e2e8f0;
-  border-top: 5px solid #2563eb;
-  border-radius: 50%;
-  animation: loader-spin 1s linear infinite;
+/* Conteneur de l'icône de chargement */
+.loader__ring-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.loader p {
+/* Anneau Doré Circulaire d'Exception */
+.loader__spinner-luxury {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  /* Utilisation des variables d'or de ton manifeste de style */
+  border: 1px solid rgba(197, 168, 105, 0.15);
+  border-top: 1.5px solid #c5a869; /* Or brossé principal */
+  border-right: 1.25px solid #d4bc88; /* Or brossé clair */
+  
+  /* Utilisation du timing éditorial cubique fluide de ton fichier d'inspiration */
+  animation: luxury-distill 1.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Point fixe central symbolisant le cœur du flacon */
+.loader__core-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #1c1b19; /* Brand charcoal */
+  border-radius: 999px;
+  opacity: 0.35;
+  animation: core-pulse 2.4s ease-in-out infinite;
+}
+
+/* Libellé Doré Sablé (label-gold) */
+.loader__text.label-gold {
   margin: 0;
-  color: #475569;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #a8894a; /* --brand-gold-dark */
+  text-align: center;
+  animation: text-fade-pulse 2s ease-in-out infinite;
 }
 
-@keyframes loader-spin {
-  from {
+/* Modificateur Dark Mode automatique si appliqué sur un conteneur .dark */
+.dark .loader__core-dot {
+  background-color: #faf8f5;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   ANIMATIONS ÉDITORIALES (MANIFESTE DE MOUVEMENT LUXE)
+   ========================================================================== */
+
+/* Rotation asymétrique avec accélération/décélération noble */
+@keyframes luxury-distill {
+  0% {
     transform: rotate(0deg);
   }
-
-  to {
+  50% {
+    transform: rotate(180deg) scale(1.02); /* Légère dilatation organique au sommet */
+  }
+  100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Pulsation d'éclat du noyau */
+@keyframes core-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+}
+
+/* Respiration épurée du texte typographique */
+@keyframes text-fade-pulse {
+  0%, 100% {
+    opacity: 0.45;
+    letter-spacing: 0.24em;
+  }
+  50% {
+    opacity: 0.9;
+    letter-spacing: 0.26em; /* Écartement imperceptible des caractères */
   }
 }

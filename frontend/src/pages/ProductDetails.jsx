@@ -9,8 +9,7 @@ const ProductDetails = () => {
   const { id } = useParams();
 
   const [product, setProduct] = useState(null);
-  const [selectedVariant, setSelectedVariant] =
-    useState(null);
+  const [selectedVariant, setSelectedVariant] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,13 +25,10 @@ const ProductDetails = () => {
       }
 
       const data = await res.json();
-
       setProduct(data);
 
       const firstAvailable =
-        data.variants?.find(
-          (v) => v.stock > 0
-        ) || data.variants?.[0];
+        data.variants?.find((v) => v.stock > 0) || data.variants?.[0];
 
       setSelectedVariant(firstAvailable);
     } catch (err) {
@@ -45,21 +41,15 @@ const ProductDetails = () => {
   const addToCart = () => {
     if (!selectedVariant) return;
 
-    const cart = JSON.parse(
-      localStorage.getItem("cart") || "[]"
-    );
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     const existing = cart.find(
       (item) =>
-        item.productId === product.id &&
-        item.variantId === selectedVariant.id
+        item.productId === product.id && item.variantId === selectedVariant.id
     );
 
     if (existing) {
-      if (
-        existing.quantity <
-        selectedVariant.stock
-      ) {
+      if (existing.quantity < selectedVariant.stock) {
         existing.quantity += 1;
       }
     } else {
@@ -72,17 +62,12 @@ const ProductDetails = () => {
         quantity: 1,
         stock: selectedVariant.stock,
         imageUrls: product.imageUrls,
-        primaryImageUrl:
-          product.imageUrls?.[0] || null,
+        primaryImageUrl: product.imageUrls?.[0] || null,
       });
     }
 
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(cart)
-    );
-
-    alert("Produit ajouté au panier.");
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("La fragrance a rejoint votre sélection.");
   };
 
   if (loading) {
@@ -91,99 +76,92 @@ const ProductDetails = () => {
 
   if (!product) {
     return (
-      <h2>Produit introuvable.</h2>
+      <div className="product-detail-error section-dark">
+        <h2 className="font-display">Création Introuvable</h2>
+      </div>
     );
   }
 
-  const image =
-    product.imageUrls?.[0] ||
-    "https://via.placeholder.com/400";
+  const image = product.imageUrls?.[0] || "https://via.placeholder.com/450x550?text=Fragrance";
 
   return (
-    <div className="product-detail">
-      <div className="product-detail__card">
-        <div className="product-detail__media">
+    <div className="product-detail marble-bg noise-overlay">
+      <div className="product-detail__card surface-panel">
+        
+        {/* Écrin Média avec effet Zoom Lookbook */}
+        <div className="product-detail__media card-image-zoom">
           <img
-            src={
-              image.startsWith("/uploads")
-                ? `http://localhost:8080${image}`
-                : image
-            }
+            src={image.startsWith("/uploads") ? `http://localhost:8080${image}` : image}
             alt={product.name}
-            className="product-detail__image"
+            className="product-detail__image card-image-zoom__target"
           />
         </div>
 
+        {/* Panneau d'Information Éditorial */}
         <div className="product-detail__content">
           <div className="product-detail__badges">
-            <span>
+            <span className="editorial-pill editorial-pill--gold">
               {product.categoryName}
             </span>
-
-            <span>{product.sex}</span>
+            <span className="editorial-pill">
+              Sillage {product.sex}
+            </span>
           </div>
 
-          <h1>{product.name}</h1>
+          <span className="luxury-section-label">Haute Fragrance</span>
+          <h1 className="font-display">{product.name}</h1>
+          <div className="gold-divider-subtle"></div>
 
-          <p className="product-detail__description">
-            {product.description}
+          <p className="product-detail__description footer-brand-text">
+            {product.description || "Une architecture olfactive d'exception, assemblée à la main à partir d'essences de haute parfumerie hautement concentrées."}
           </p>
 
-          <h3>
-            Choisissez une taille
-          </h3>
+          <h3 className="variant-select-title label-gold">Contenance & Flaconnage</h3>
 
           <div className="product-detail__variants">
-            {product.variants?.map(
-              (variant) => (
+            {product.variants?.map((variant) => {
+              const isSelected = selectedVariant?.id === variant.id;
+              return (
                 <button
                   key={variant.id}
-                  onClick={() =>
-                    setSelectedVariant(
-                      variant
-                    )
-                  }
-                  disabled={
-                    variant.stock <= 0
-                  }
-                  className={
-                    selectedVariant?.id ===
-                    variant.id
-                      ? "product-detail__variant product-detail__variant--active"
-                      : "product-detail__variant"
-                  }
+                  onClick={() => setSelectedVariant(variant)}
+                  disabled={variant.stock <= 0}
+                  className={`option-card ${isSelected ? "option-card--active" : ""}`}
                 >
-                  {variant.size}
+                  <div className="option-card__icon font-sans">ml</div>
+                  <span className="variant-size-text font-sans">{variant.size}</span>
                 </button>
-              )
-            )}
+              );
+            })}
           </div>
 
           {selectedVariant && (
-            <div className="product-detail__info">
-              <div className="product-detail__price">
-                {selectedVariant.price} DH
+            <div className="product-detail__info-pricing luxury-motion">
+              <div className="product-detail__price-wrap">
+                <span className="label-gold">Valeur</span>
+                <div className="product-detail__price text-gold-gradient tabular-nums">
+                  {selectedVariant.price} DH
+                </div>
               </div>
 
-              <div className="product-detail__stock">
-                {selectedVariant.stock >
-                0
-                  ? `En stock (${selectedVariant.stock})`
-                  : "Rupture de stock"}
+              <div className="product-detail__stock-wrap">
+                <span className={`editorial-pill ${selectedVariant.stock > 0 ? "editorial-pill--available" : "editorial-pill--unavailable"}`}>
+                  {selectedVariant.stock > 0 ? `En Atelier (${selectedVariant.stock} flacons)` : "Édition épuisée"}
+                </span>
               </div>
 
               <button
-                className="product-detail__button"
+                className="luxury-cta shine-on-hover product-detail__button"
                 onClick={addToCart}
-                disabled={
-                  selectedVariant.stock <= 0
-                }
+                disabled={selectedVariant.stock <= 0}
               >
-                Ajouter au panier
+                <span className="luxury-cta__inner">Ajouter au Flaconnier</span>
+                <span className="luxury-cta__shine"></span>
               </button>
             </div>
           )}
         </div>
+
       </div>
     </div>
   );

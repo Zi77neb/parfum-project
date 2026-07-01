@@ -27,7 +27,7 @@ const Orders = () => {
       });
 
       if (!res.ok) {
-        throw new Error("Impossible de charger les commandes.");
+        throw new Error("Impossible de charger le registre des commandes.");
       }
 
       const data = await res.json();
@@ -57,7 +57,7 @@ const Orders = () => {
       });
 
       if (!res.ok) {
-        throw new Error("Impossible de modifier le statut.");
+        throw new Error("Impossible de modifier le statut de réservation.");
       }
 
       fetchOrders();
@@ -67,21 +67,34 @@ const Orders = () => {
   };
 
   return (
-    <div className="admin-layout">
+    <div className="admin-layout admin-shell admin-motion">
       <Sidebar />
 
       <div className="admin-content admin-page">
-        <h1>Gestion des commandes</h1>
+        {/* En-tête de page officiel issu de l'Admin Shell */}
+        <div className="admin-page-head">
+          <div>
+            <span className="admin-eyebrow">Réservations & Facturation</span>
+            <h1 className="admin-title">REGISTRE DES COMMANDES</h1>
+            <p className="admin-subtitle">
+              Consultez les requêtes de flaconnage privées, validez les transactions et traitez les expéditions.
+            </p>
+          </div>
+        </div>
 
-        {loading ? (
-          <Loader />
-        ) : (
-          <OrderTable
-            orders={orders}
-            onView={handleView}
-            onStatusChange={handleStatusChange}
-          />
-        )}
+        <div className="admin-table-container admin-panel">
+          {loading ? (
+            <div className="admin-page-loader-wrap">
+              <Loader text="Ouverture du registre logistique..." />
+            </div>
+          ) : (
+            <OrderTable
+              orders={orders}
+              onView={handleView}
+              onStatusChange={handleStatusChange}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

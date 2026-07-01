@@ -1,113 +1,234 @@
-.admin-layout {
+/* ==========================================================================
+   ADMIN PAGE — CATEGORIES (CONSOLE DE GESTION PRIVÉE)
+   ========================================================================== */
+
+/* Implémentation du conteneur global admin-shell */
+.admin-layout.admin-shell {
   display: flex;
   min-height: 100vh;
-  background: #f8fafc;
+  background: #faf8f5 !important; /* Fond mat neutre officiel */
+  color: #1c1b19; /* Brand charcoal */
+  font-family: 'Inter', sans-serif;
 }
 
 .admin-content {
   flex: 1;
-  padding: 40px;
+  padding: 50px 60px;
+  min-width: 0;
 }
 
-.admin-page h1 {
+.admin-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zone d'en-tête technique épurée (.admin-page-head) */
+.admin-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
   margin-bottom: 35px;
-  color: #1e293b;
-  font-size: 2rem;
-  font-weight: 700;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.08);
 }
 
-.admin-page hr {
-  border: none;
+.admin-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #c5a869;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.admin-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1c1b19;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.admin-subtitle {
+  font-size: 13.5px;
+  color: rgba(28, 27, 25, 0.45);
+  margin: 8px 0 0 0;
+}
+
+/* Ligne or fine d'orfèvre du manifeste */
+.admin-page .gold-divider {
   height: 1px;
-  background: #e2e8f0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(197, 168, 105, 0.22) 50%,
+    transparent 100%
+  );
   margin: 40px 0;
 }
 
-.admin-page h2 {
-  margin-bottom: 25px;
-  color: #1e293b;
-  font-size: 1.5rem;
+.admin-section-subtitle.font-display {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1c1b19;
+  margin: 0 0 25px 0;
+  text-align: left;
 }
 
-.admin-table {
+/* Enveloppe de tableau d'administration */
+.admin-panel {
+  background: #ffffff;
+  border: 1px solid rgba(28, 27, 25, 0.06);
+  border-radius: 0px !important; /* Lignes géométriques strictes */
+  box-shadow: 0 18px 40px rgba(28, 27, 25, 0.03);
+}
+
+/* ===== TABLE D'ADMINISTRATION LUXE ===== */
+.admin-shell table.admin-table {
   width: 100%;
   border-collapse: collapse;
   background: #ffffff;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid #e6e2d4;
+  font-size: 13.5px;
 }
 
-.admin-table thead {
-  background: #1e293b;
-  color: white;
+/* En-tête gris perle épuré */
+.admin-shell table thead {
+  background: #fafaf4 !important;
 }
 
-.admin-table th {
-  padding: 18px;
+.admin-shell table thead th {
   text-align: left;
+  padding: 14px 18px !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: #7e7e7e !important;
+  border-bottom: 1px solid #e6e2d4 !important;
+}
+
+/* Lignes et cellules de données */
+.admin-shell table tbody td {
+  padding: 14px 18px !important;
+  border-top: 1px solid #f0ecdf !important;
+  border-bottom: none;
+  color: #2b2b2b;
+  vertical-align: middle;
+}
+
+.admin-shell table tbody tr {
+  transition: background 120ms ease;
+}
+
+/* Réactivité douce au survol d'or brossé */
+.admin-shell table tbody tr:hover {
+  background: rgba(201, 162, 74, 0.05) !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-muted-column {
+  color: rgba(28, 27, 25, 0.55);
+  font-weight: 300;
+}
+
+/* Groupe d'actions et boutons alignés (.admin-action-group) */
+.admin-action-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Bouton d'icône d'action de table (.admin-icon-btn) */
+.admin-shell .admin-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 14px;
+  font-size: 12px;
   font-weight: 600;
-}
-
-.admin-table td {
-  padding: 18px;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.admin-table tbody tr {
-  transition: 0.3s;
-}
-
-.admin-table tbody tr:hover {
-  background: #f8fafc;
-}
-
-.admin-table td button {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
+  color: rgba(28, 27, 25, 0.6);
+  border: 1px solid rgba(28, 27, 25, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 0px !important;
   cursor: pointer;
-  margin-right: 10px;
-  font-weight: 600;
-  transition: 0.3s;
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1); /* admin-motion */
 }
 
-.admin-table td button:first-child {
-  background: #2563eb;
-  color: white;
+.admin-shell .admin-icon-btn:hover {
+  background: #f0ecdf;
+  color: #9a6f2e;
+  border-color: rgba(197, 168, 105, 0.3);
 }
 
-.admin-table td button:first-child:hover {
-  background: #1d4ed8;
+/* Version d'alerte rouge bordeaux pour suppression */
+.admin-shell .admin-icon-btn.danger {
+  color: rgba(190, 18, 60, 0.7);
+  border-color: rgba(190, 18, 60, 0.15);
 }
 
-.admin-table__danger {
-  background: #ef4444 !important;
-  color: white !important;
+.admin-shell .admin-icon-btn.danger:hover {
+  color: #ffffff;
+  background: #be123c;
+  border-color: #be123c;
 }
 
-.admin-table__danger:hover {
-  background: #dc2626 !important;
+/* Cellule vide */
+.admin-shell .admin-table-empty {
+  text-align: center !important;
+  color: rgba(28, 27, 25, 0.4) !important;
+  padding: 40px !important;
+  font-style: italic;
 }
 
-.admin-table td[colspan] {
-  text-align: center;
-  color: #64748b;
-  padding: 35px;
-}
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
 
 @media (max-width: 992px) {
-  .admin-layout {
+  .admin-layout.admin-shell {
     flex-direction: column;
   }
 
   .admin-content {
-    padding: 25px;
+    padding: 40px 24px;
   }
 
-  .admin-table {
-    display: block;
+  .admin-panel {
     overflow-x: auto;
-    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .admin-shell table.admin-table {
+    min-width: 640px; /* Force l'apparition du scroll horizontal pro sans briser la structure */
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+
+  .admin-title {
+    font-size: 1.35rem;
+  }
+
+  .admin-shell table thead th,
+  .admin-shell table tbody td {
+    padding: 12px 14px !important;
   }
 }

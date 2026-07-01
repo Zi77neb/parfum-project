@@ -53,7 +53,7 @@ const Products = () => {
 
       if (!res.ok) {
         throw new Error(
-          "Impossible de charger les produits."
+          "Impossible de charger les pièces de la collection."
         );
       }
 
@@ -96,14 +96,18 @@ const Products = () => {
   };
 
   return (
-    <div className="products-page">
+    <div className="products-page marble-bg noise-overlay">
       <div className="products-page__header">
-        <h1>Nos Produits</h1>
+        <span className="luxury-section-label animate-fade-in-up">Les Ateliers</span>
+        <h1 className="section-title">Nos Collections Privées</h1>
+        <div className="gold-divider-center"></div>
 
-        <SearchBar
-          value={filters.search}
-          onChange={handleSearch}
-        />
+        <div className="products-page__search-wrap">
+          <SearchBar
+            value={filters.search}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
 
       <div className="products-layout">
@@ -117,7 +121,9 @@ const Products = () => {
 
         <section className="products-layout__content">
           {loading ? (
-            <Loader />
+            <div className="products-page-loader-wrap">
+              <Loader text="Assemblage de la collection..." />
+            </div>
           ) : (
             <>
               <ProductGallery products={products} />

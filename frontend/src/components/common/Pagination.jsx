@@ -11,35 +11,39 @@ const Pagination = ({
   const pages = [...Array(totalPages).keys()];
 
   return (
-    <div className="pagination">
+    <div className="pagination-container">
       <button
-        className="pagination__button"
+        className="fleet-page-btn nav-arrow"
         disabled={page === 0}
         onClick={() => onPageChange(page - 1)}
+        aria-label="Page précédente"
       >
-        Precedent
+        ← Précédent
       </button>
 
-      {pages.map((p) => (
-        <button
-          key={p}
-          onClick={() => onPageChange(p)}
-          className={
-            p === page
-              ? "pagination__button pagination__button--active"
-              : "pagination__button"
-          }
-        >
-          {p + 1}
-        </button>
-      ))}
+      <div className="pagination-numeric-group">
+        {pages.map((p) => (
+          <button
+            key={p}
+            onClick={() => onPageChange(p)}
+            className={
+              p === page
+                ? "fleet-page-btn fleet-page-btn--active tabular-nums"
+                : "fleet-page-btn tabular-nums"
+            }
+          >
+            {p + 1}
+          </button>
+        ))}
+      </div>
 
       <button
-        className="pagination__button"
+        className="fleet-page-btn nav-arrow"
         disabled={page >= totalPages - 1}
         onClick={() => onPageChange(page + 1)}
+        aria-label="Page suivante"
       >
-        Suivant
+        Suivant →
       </button>
     </div>
   );

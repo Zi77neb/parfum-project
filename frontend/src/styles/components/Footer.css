@@ -1,78 +1,233 @@
-.site-footer {
-  background: #1e293b;
-  color: #ffffff;
-  text-align: center;
-  padding: 50px 20px 30px;
-  margin-top: 80px;
-}
+/* ==========================================================================
+   SITE FOOTER — SIGNATURE ÉDITORIALE HAUTE PARFUMERIE
+   ========================================================================== */
 
-.site-footer h3 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.site-footer p {
-  margin: 15px 0;
-  color: #cbd5e1;
-  font-size: 0.95rem;
-}
-
-.site-footer__links {
-  margin: 30px 0;
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  flex-wrap: wrap;
-}
-
-.site-footer__links a {
-  color: #cbd5e1;
-  text-decoration: none;
-  font-weight: 500;
+.site-footer.footer-shell {
   position: relative;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  margin-top: 100px;
+  background-color: #1c1b19; /* Charcoal de marque */
+  color: #faf8f5; /* Ivoire de marque */
+  font-family: 'Inter', sans-serif;
+  border-top: 1px solid rgba(197, 168, 105, 0.15);
 }
 
-.site-footer__links a::after {
-  content: "";
+/* Couture d'or brossé linéaire supérieure */
+.site-footer__seam {
   position: absolute;
   left: 0;
-  bottom: -6px;
-  width: 0;
-  height: 2px;
-  background: #2563eb;
-  transition: width 0.3s ease;
+  right: 0;
+  top: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, #a8894a 0%, #c5a869 35%, #d4bc88 50%, #c5a869 65%, #a8894a 100%);
+  opacity: 0.9;
+  z-index: 2;
 }
 
-.site-footer__links a:hover {
-  color: #ffffff;
+/* Fond texturé réseau de points d'orfèvre */
+.site-footer__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(rgba(197, 168, 105, 0.15) 1px, transparent 1px);
+  background-size: 28px 28px;
 }
 
-.site-footer__links a:hover::after {
-  width: 100%;
+/* Mesh de lumière dorée subtile en arrière-plan */
+.site-footer__mesh {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 85% 72%, rgba(197, 168, 105, 0.08) 0%, transparent 50%);
+  opacity: 1;
 }
 
-.site-footer__copyright {
-  margin-top: 35px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  color: #94a3b8;
-  font-size: 0.9rem;
+/* Estompe éditoriale */
+.site-footer__fade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(28, 27, 25, 0.28) 0%, transparent 100%);
 }
 
-@media (max-width: 768px) {
-  .site-footer {
-    padding: 40px 20px 25px;
+/* Layout en grille 3 colonnes symétriques */
+.site-footer__inner {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px 60px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 60px;
+  z-index: 2;
+}
+
+/* Colonne Identité de la Maison */
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.site-footer__brand-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  margin: 0 0 16px 0;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #faf8f5;
+}
+
+.site-footer__ornament {
+  height: 1px;
+  width: 40px;
+  background: #c5a869; /* --brand-gold */
+  margin-bottom: 20px;
+}
+
+.site-footer__text {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(250, 248, 245, 0.76); /* --theme-footer-text-muted */
+  max-w: 380px;
+}
+
+.site-footer__text.italic-note {
+  font-style: italic;
+  color: rgba(250, 248, 245, 0.55);
+  margin-bottom: 20px;
+}
+
+/* En-têtes de listes dorés sablés */
+.site-footer__title {
+  font-family: 'Inter', sans-serif;
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: #c5a869; /* --theme-footer-heading */
+  text-align: left;
+}
+
+/* Liens de navigation raffinés */
+.site-footer__links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.site-footer__link {
+  font-size: 13.5px;
+  color: rgba(250, 248, 245, 0.72);
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Losange or minimaliste apparaissant de manière fluide au survol */
+.site-footer__link::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  transform: rotate(45deg) scale(0);
+  background: #c5a869;
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-footer__link:hover {
+  color: #c5a869;
+}
+
+.site-footer__link:hover::before {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+/* Lien d'Action Concierge */
+.site-footer__cta {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #c5a869;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.site-footer__cta:hover {
+  color: #d4bc88;
+  letter-spacing: 0.22em;
+}
+
+/* Bandeau inférieur de copyright (Footer Bar) */
+.site-footer__bar {
+  position: relative;
+  border-top: 1px solid rgba(197, 168, 105, 0.12);
+  background: rgba(14, 13, 12, 0.88); /* --theme-footer-bar-bg */
+  z-index: 2;
+}
+
+.site-footer__bar-inner {
+  max-w: 1200px;
+  margin: 0 auto;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-footer__bar-inner p {
+  margin: 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(250, 248, 245, 0.42); /* --theme-footer-text-faint */
+}
+
+.site-footer__bar-mark,
+.site-footer__bar-tagline {
+  color: rgba(197, 168, 105, 0.75) !important;
+  font-weight: 500;
+}
+
+/* Adaptation Responsive Lookbook */
+@media (max-width: 992px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 24px 40px;
   }
 
-  .site-footer h3 {
-    font-size: 1.7rem;
-  }
-
+  .site-footer__brand,
+  .site-footer__title,
   .site-footer__links {
+    align-items: center;
+    text-align: center;
+  }
+
+  .site-footer__text {
+    max-width: 100%;
+  }
+
+  .site-footer__bar-inner {
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
+    padding: 24px 20px;
   }
 }

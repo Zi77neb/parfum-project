@@ -32,6 +32,7 @@ public class SecurityConfig {
             CustomUserDetailsService userDetailsService,
             JwtAuthenticationEntryPoint authenticationEntryPoint,
             JwtAccessDeniedHandler accessDeniedHandler) {
+
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.userDetailsService = userDetailsService;
         this.authenticationEntryPoint = authenticationEntryPoint;
@@ -40,6 +41,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> {})
@@ -48,7 +50,10 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(authenticationEntryPoint)
                         .accessDeniedHandler(accessDeniedHandler))
+
                 .authorizeHttpRequests(auth -> auth
+
+                        // Accès public
                         .requestMatchers(
                                 "/api/auth/login",
                                 "/swagger-ui/**",
@@ -56,37 +61,46 @@ public class SecurityConfig {
                                 "/error"
                         ).permitAll()
 
+                        // Produits, catégories et images accessibles à tous
                         .requestMatchers(HttpMethod.GET,
                                 "/api/products/**",
-                                "/api/categories/**"
+                                "/api/categories/**",
+                                "/uploads/**"
                         ).permitAll()
 
+                        // Checkout accessible sans authentification
                         .requestMatchers(HttpMethod.POST,
                                 "/api/orders/checkout"
                         ).permitAll()
 
+                        // Zone Admin
                         .requestMatchers("/api/admin/**")
                         .hasAuthority("ADMIN")
 
+                        // Création
                         .requestMatchers(HttpMethod.POST,
                                 "/api/products/**",
                                 "/api/categories/**",
                                 "/api/uploads/**"
                         ).hasAuthority("ADMIN")
 
+                        // Modification
                         .requestMatchers(HttpMethod.PUT,
                                 "/api/products/**",
                                 "/api/categories/**",
                                 "/api/orders/**"
                         ).hasAuthority("ADMIN")
 
+                        // Suppression
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/products/**",
                                 "/api/categories/**",
                                 "/api/uploads/**"
                         ).hasAuthority("ADMIN")
 
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()
+                )
+
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(
                         jwtAuthenticationFilter,
@@ -98,10 +112,13 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
+
         DaoAuthenticationProvider provider =
                 new DaoAuthenticationProvider();
+
         provider.setUserDetailsService(userDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
+
         return provider;
     }
 
@@ -114,6 +131,7 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration configuration)
             throws Exception {
+
         return configuration.getAuthenticationManager();
     }
 }

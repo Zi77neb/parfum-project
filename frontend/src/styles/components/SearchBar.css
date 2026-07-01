@@ -1,38 +1,100 @@
-.search-bar {
+/* ==========================================================================
+   SEARCH BAR — RECHERCHE LINÉAIRE COUTURE
+   ========================================================================== */
+
+.search-bar-luxury-container {
   width: 100%;
-  margin: 25px 0;
+  margin: 40px 0;
   display: flex;
   justify-content: center;
+  font-family: 'Inter', sans-serif;
 }
 
-.search-bar__input {
+.search-bar__inner {
+  position: relative;
   width: 100%;
-  max-width: 650px;
-  padding: 15px 22px;
-  border: 1.5px solid #dbe2ea;
-  border-radius: 50px;
-  background: #ffffff;
-  font-size: 1rem;
-  color: #334155;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.search-bar__input::placeholder {
-  color: #94a3b8;
+/* Libellé Doré Sablé Suspendu (label-gold) */
+.search-bar-label.label-gold {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7e6128; /* --brand-gold-dark */
+  text-align: left;
 }
 
-.search-bar__input:focus {
-  outline: none;
-  border-color: #2563eb;
-  box-shadow:
-    0 0 0 4px rgba(37, 99, 235, 0.15),
-    0 8px 20px rgba(0, 0, 0, 0.08);
+/* Saisie Épurée Linéaire (.field-input) */
+.search-bar__inner .search-bar__input.field-input {
+  width: 100%;
+  padding: 14px 0px 14px 4px; /* Libère l'espace pour un alignement parfait */
+  background: transparent !important; /* Fusion complète dans le décor ivoire */
+  border: none !important;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.08) !important; /* Ligne de base fine */
+  border-radius: 0px !important; /* Suppression radicale des angles arrondis */
+  font-size: 14px;
+  color: #1c1b19; /* Brand charcoal */
+  box-shadow: none !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important; /* --editorial-ease */
 }
 
+/* Placeholder Discret et Poétique */
+.search-bar__inner .search-bar__input.field-input::placeholder {
+  color: rgba(28, 27, 25, 0.38); /* --theme-text-soft */
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Survol de la zone */
+.search-bar__inner .search-bar__input.field-input:hover {
+  border-bottom-color: rgba(197, 168, 105, 0.45) !important;
+}
+
+/* Focus État d'Or Lumineux */
+.search-bar__inner .search-bar__input.field-input:focus {
+  outline: none !important;
+  border-bottom-color: #c5a869 !important; /* --brand-gold */
+  padding-left: 8px; /* Léger décalage de confort ultra-fluide */
+  /* Diffusion d'ombre douce or translucide au point bas */
+  box-shadow: 0 12px 32px -20px rgba(197, 168, 105, 0.25) !important;
+}
+
+/* Trait d'accentuation dynamique optionnel si tu souhaites animer la ligne */
+.search-bar__focus-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  height: 1px;
+  background: #c5a869;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.search-bar__input.field-input:focus ~ .search-bar__focus-line {
+  left: 0;
+  right: 0;
+}
+
+/* Mode Mobile */
 @media (max-width: 768px) {
-  .search-bar__input {
-    padding: 14px 18px;
-    font-size: 0.95rem;
+  .search-bar-luxury-container {
+    margin: 25px 0;
+    padding: 0 20px;
+  }
+  
+  .search-bar__inner .search-bar__input.field-input {
+    padding: 12px 0px 12px 2px;
+    font-size: 13.5px;
+  }
+  
+  .search-bar__inner .search-bar__input.field-input:focus {
+    padding-left: 4px;
   }
 }

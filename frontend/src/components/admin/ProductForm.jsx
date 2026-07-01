@@ -172,8 +172,8 @@ const ProductForm = ({
 
       alert(
         product
-          ? "Produit modifie avec succes."
-          : "Produit ajoute avec succes."
+          ? "Produit modifié avec succès."
+          : "Produit ajouté avec succès."
       );
 
       onSuccess(data);
@@ -185,58 +185,75 @@ const ProductForm = ({
   };
 
   return (
-    <form className="product-form" onSubmit={handleSubmit}>
-      <h2>{product ? "Modifier" : "Ajouter"} un produit</h2>
+    <form className="product-form admin-panel" onSubmit={handleSubmit}>
+      <h2 className="admin-title">
+        {product ? "MODIFIER" : "AJOUTER"} UN PARFUM
+      </h2>
 
       <div className="form-field">
-        <label>Nom</label>
-        <input name="name" value={form.name} onChange={handleChange} required />
+        <label className="label-gold">Nom de la fragrance</label>
+        <input 
+          className="input-luxury" 
+          name="name" 
+          value={form.name} 
+          onChange={handleChange} 
+          required 
+        />
       </div>
 
       <div className="form-field">
-        <label>Description</label>
-        <textarea name="description" value={form.description} onChange={handleChange} />
+        <label className="label-gold">Description & Notes Olfactives</label>
+        <textarea 
+          className="input-luxury" 
+          name="description" 
+          value={form.description} 
+          onChange={handleChange} 
+        />
       </div>
 
-      <div className="form-field">
-        <label>Sexe</label>
-        <select name="sex" value={form.sex} onChange={handleChange}>
-          <option value="HOMME">HOMME</option>
-          <option value="FEMME">FEMME</option>
-          <option value="ENFANT">ENFANT</option>
-        </select>
+      <div className="form-grid-two-columns">
+        <div className="form-field">
+          <label className="label-gold">Sexe</label>
+          <select className="input-luxury" name="sex" value={form.sex} onChange={handleChange}>
+            <option value="HOMME">HOMME</option>
+            <option value="FEMME">FEMME</option>
+            <option value="ENFANT">ENFANT</option>
+          </select>
+        </div>
+
+        <div className="form-field">
+          <label className="label-gold">Collection / Catégorie</label>
+          <select className="input-luxury" name="categoryId" value={form.categoryId} onChange={handleChange} required>
+            <option value="">Choisir une collection</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
-      <div className="form-field">
-        <label>Categorie</label>
-        <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
-          <option value="">Choisir</option>
-          {categories.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <hr />
-      <h3>Tailles</h3>
+      <div className="gold-divider"></div>
+      <h3 className="variant-section-title">Déclinaisons & Volumes</h3>
 
       {form.variants.map((variant, index) => (
         <div key={index} className="product-form__variant">
           <div className="form-field">
-            <label>Taille</label>
+            <label className="label-gold">Contenance</label>
             <input
+              className="input-luxury"
               value={variant.size}
               onChange={(e) => handleVariantChange(index, "size", e.target.value)}
-              placeholder="10ml"
+              placeholder="Ex: 100ml"
               required
             />
           </div>
 
           <div className="form-field">
-            <label>Prix</label>
+            <label className="label-gold">Prix (€)</label>
             <input
+              className="input-luxury"
               type="number"
               step="0.01"
               value={variant.price}
@@ -246,8 +263,9 @@ const ProductForm = ({
           </div>
 
           <div className="form-field">
-            <label>Stock</label>
+            <label className="label-gold">Unités en Stock</label>
             <input
+              className="input-luxury"
               type="number"
               value={variant.stock}
               onChange={(e) => handleVariantChange(index, "stock", e.target.value)}
@@ -255,33 +273,33 @@ const ProductForm = ({
             />
           </div>
 
-          <button className="product-form__remove" type="button" onClick={() => removeVariant(index)}>
+          <button className="admin-action-btn--danger" type="button" onClick={() => removeVariant(index)}>
             Supprimer
           </button>
         </div>
       ))}
 
-      <button className="product-form__add" type="button" onClick={addVariant}>
-        Ajouter une taille
+      <button className="btn-outline-gold btn-add-variant" type="button" onClick={addVariant}>
+        + Ajouter un volume (Contenance)
       </button>
 
-      <hr />
+      <div className="gold-divider"></div>
 
       <div className="form-field">
-        <label>Image</label>
-        <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
+        <label className="label-gold">Flacon (Image principale)</label>
+        <input className="input-luxury file-input-luxury" type="file" onChange={(e) => setImageFile(e.target.files[0])} />
       </div>
 
       <div className="product-form__actions">
-        <button disabled={loading}>
-          {loading ? "Enregistrement..." : product ? "Modifier" : "Ajouter"}
-        </button>
-
         {product && (
-          <button type="button" onClick={onCancel}>
+          <button className="btn-ghost" type="button" onClick={onCancel}>
             Annuler
           </button>
         )}
+        
+        <button className="btn-dark" disabled={loading}>
+          {loading ? "Enregistrement..." : product ? "Enregistrer les modifications" : "Créer le produit"}
+        </button>
       </div>
     </form>
   );

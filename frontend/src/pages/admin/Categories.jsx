@@ -24,7 +24,7 @@ const Categories = () => {
   };
 
   const deleteCategory = async (id) => {
-    if (!window.confirm("Supprimer cette categorie ?")) {
+    if (!window.confirm("Supprimer cette collection ?")) {
       return;
     }
 
@@ -49,63 +49,86 @@ const Categories = () => {
   };
 
   return (
-    <div className="admin-layout">
+    <div className="admin-layout admin-shell admin-motion">
       <Sidebar />
 
       <div className="admin-content admin-page">
-        <h1>Gestion des categories</h1>
+        {/* En-tête de page officiel issu de l'Admin Shell */}
+        <div className="admin-page-head">
+          <div>
+            <span className="admin-eyebrow">Ateliers & Structures</span>
+            <h1 className="admin-title">GESTION DES COLLECTIONS</h1>
+            <p className="admin-subtitle">
+              Configurez et organisez les familles olfactives et les gammes de votre maison.
+            </p>
+          </div>
+        </div>
 
-        <CategoryForm
-          category={selectedCategory}
-          onSuccess={() => {
-            setSelectedCategory(null);
-            fetchCategories();
-          }}
-          onCancel={() => setSelectedCategory(null)}
-        />
+        <div className="admin-form-container">
+          <CategoryForm
+            category={selectedCategory}
+            onSuccess={() => {
+              setSelectedCategory(null);
+              fetchCategories();
+            }}
+            onCancel={() => setSelectedCategory(null)}
+          />
+        </div>
 
-        <hr />
+        <div className="gold-divider"></div>
 
-        <h2>Liste des categories</h2>
+        <h2 className="admin-section-subtitle font-display">Collections Répertoriées</h2>
 
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nom</th>
-              <th>Description</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {categories.map((category) => (
-              <tr key={category.id}>
-                <td>{category.id}</td>
-                <td>{category.name}</td>
-                <td>{category.description}</td>
-                <td>
-                  <button onClick={() => setSelectedCategory(category)}>
-                    Modifier
-                  </button>
-
-                  <button
-                    className="admin-table__danger"
-                    onClick={() => deleteCategory(category.id)}
-                  >
-                    Supprimer
-                  </button>
-                </td>
-              </tr>
-            ))}
-
-            {categories.length === 0 && (
+        {/* Conteneur scrollable compact pour petits écrans */}
+        <div className="admin-panel">
+          <table className="admin-table">
+            <thead>
               <tr>
-                <td colSpan="4">Aucune categorie.</td>
+                <th>ID</th>
+                <th>Nom de la collection</th>
+                <th>Description</th>
+                <th className="text-right">Actions</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {categories.map((category) => (
+                <tr key={category.id}>
+                  <td className="tabular-nums">{category.id}</td>
+                  <td className="font-medium">{category.name}</td>
+                  <td className="text-muted-column">{category.description || "Aucune description enregistrée."}</td>
+                  <td className="text-right">
+                    <div className="admin-action-group">
+                      <button 
+                        className="admin-icon-btn" 
+                        onClick={() => setSelectedCategory(category)}
+                        title="Modifier"
+                      >
+                        Modifier
+                      </button>
+
+                      <button
+                        className="admin-icon-btn danger"
+                        onClick={() => deleteCategory(category.id)}
+                        title="Supprimer"
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+
+              {categories.length === 0 && (
+                <tr>
+                  <td colSpan="4" className="admin-table-empty">
+                    Aucune collection n'est configurée en atelier.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

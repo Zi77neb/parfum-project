@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/pages/admin/Login.css";
@@ -57,14 +56,16 @@ const Login = () => {
   };
 
   return (
-    <div className="admin-login">
-      <div className="admin-login__card">
-        <div className="admin-login__logo">🛍️</div>
+    <div className="admin-login auth-shell marble-bg noise-overlay">
+      <div className="admin-login__card auth-form-panel">
+        
+        {/* Ornement typographique de la Maison au lieu de l'émoji */}
+        <div className="admin-login__griffe font-display">MP</div>
 
-        <h1>Connexion Administrateur</h1>
+        <h1 className="auth-heading font-display">Espace Privé</h1>
 
-        <p>
-          Connectez-vous pour accéder au tableau de bord.
+        <p className="auth-subheading">
+          Identifiez-vous pour administrer les collections et flaconniers.
         </p>
 
         <form
@@ -72,35 +73,37 @@ const Login = () => {
           onSubmit={handleSubmit}
         >
           <div className="form-field">
-            <label>Nom d'utilisateur</label>
-
+            <label className="auth-label">Clé d'utilisateur</label>
             <input
               type="text"
               name="username"
               value={form.username}
               onChange={handleChange}
+              className="auth-input"
+              placeholder="Ex: directoire_olfactif"
               required
             />
           </div>
 
           <div className="form-field">
-            <label>Mot de passe</label>
-
+            <label className="auth-label">Empreinte de sécurité</label>
             <input
               type="password"
               name="password"
               value={form.password}
               onChange={handleChange}
+              className="auth-input"
+              placeholder="••••••••"
               required
             />
           </div>
 
           <button
-            className="admin-login__submit"
+            className="auth-btn"
             type="submit"
             disabled={loading}
           >
-            {loading ? "Connexion..." : "Se connecter"}
+            {loading ? "Chiffrement..." : "Authentification"}
           </button>
         </form>
       </div>
@@ -109,4 +112,3 @@ const Login = () => {
 };
 
 export default Login;
-

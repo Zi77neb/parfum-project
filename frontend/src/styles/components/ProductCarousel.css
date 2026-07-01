@@ -1,76 +1,131 @@
-.product-carousel {
-  margin: 60px 0;
-}
+/* ==========================================================================
+   PRODUCT CAROUSEL — LE TRACK SHOWROOM DE LUXE
+   ========================================================================== */
 
-.product-carousel h2 {
-  font-size: 2rem;
-  color: #1e293b;
-  margin-bottom: 30px;
-  text-align: center;
+.product-carousel {
+  margin: 80px 0;
+  padding: 0 4%;
+  font-family: 'Inter', sans-serif;
   position: relative;
 }
 
-.product-carousel h2::after {
-  content: "";
-  width: 80px;
-  height: 4px;
-  background: #2563eb;
-  border-radius: 20px;
-  position: absolute;
-  left: 50%;
-  bottom: -12px;
-  transform: translateX(-50%);
+.product-carousel__header {
+  margin-bottom: 40px;
+  text-align: center;
 }
 
+.product-carousel .luxury-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: #c5a869; /* --brand-gold */
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Titre Editorial Cinzel issu du Manifeste (.section-title) */
+.product-carousel .section-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 2.1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #1c1b19; /* Brand charcoal */
+  margin: 0;
+}
+
+/* Ligne or fine d'orfèvre sous le titre (.gold-divider) */
+.product-carousel .gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(197, 168, 105, 0.28) 50%,
+    transparent 100
+  );
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Piste de défilement Lookbook horizontale active */
 .product-carousel__track {
   display: flex;
-  gap: 25px;
+  gap: 32px; /* Espacement aéré haut de gamme entre les flacons */
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 15px 5px 25px;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 8px 40px 8px;
+  snap-type: x mandatory; /* Verrouillage de défilement fluide par carte */
 }
 
+/* Barre de défilement Or Brossé Ultra-Fine stylisée */
 .product-carousel__track::-webkit-scrollbar {
-  height: 10px;
+  height: 4px; /* Tracé très fin */
 }
 
 .product-carousel__track::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 20px;
+  background: transparent;
 }
 
 .product-carousel__track::-webkit-scrollbar-thumb {
-  background: #2563eb;
-  border-radius: 20px;
+  background: linear-gradient(90deg, rgba(212, 188, 136, 0.35), rgba(197, 168, 105, 0.55));
+  border-radius: 999px;
 }
 
 .product-carousel__track::-webkit-scrollbar-thumb:hover {
-  background: #1d4ed8;
+  background: linear-gradient(90deg, rgba(212, 188, 136, 0.65), rgba(197, 168, 105, 0.85));
 }
 
+/* Unité de Carte Parfum Individuelle (.showroom-card--lookbook) */
 .product-carousel__item {
-  flex: 0 0 300px;
+  flex: 0 0 320px; /* Largeur de flacon optimale standardisée */
+  snap-align: start;
+  scroll-snap-stop: always;
 }
 
-.product-carousel p {
+/* État Vide Poétique (.footer-empty) */
+.product-carousel p.footer-empty {
   text-align: center;
-  color: #64748b;
-  font-size: 1rem;
-  margin-top: 30px;
+  color: rgba(28, 27, 25, 0.45);
+  font-style: italic;
+  font-size: 13px;
+  margin-top: 40px;
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN — FLEXIBILITÉ CINÉTIQUE
+   ========================================================================== */
 
 @media (max-width: 992px) {
+  .product-carousel {
+    padding: 0 20px;
+  }
+  
+  .product-carousel .section-title {
+    font-size: 1.75rem;
+  }
+
   .product-carousel__item {
-    flex: 0 0 260px;
+    flex: 0 0 280px; /* Redimensionnement proportionnel sur tablettes */
   }
 }
 
 @media (max-width: 768px) {
-  .product-carousel h2 {
-    font-size: 1.7rem;
+  .product-carousel {
+    margin: 50px 0;
+  }
+
+  .product-carousel .section-title {
+    font-size: 1.45rem;
+    letter-spacing: 0.02em;
+  }
+
+  .product-carousel__track {
+    gap: 20px;
+    padding-bottom: 25px;
   }
 
   .product-carousel__item {
-    flex: 0 0 230px;
+    flex: 0 0 240px; /* Format compact pour écrans mobiles */
   }
 }

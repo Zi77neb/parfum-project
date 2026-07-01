@@ -1,53 +1,125 @@
-.admin-layout {
+/* ==========================================================================
+   ADMIN PAGE — ORDERS REGISTER (REGISTRE DES COMMANDES PRIVÉES)
+   ========================================================================== */
+
+/* Implémentation du conteneur global admin-shell */
+.admin-layout.admin-shell {
   display: flex;
   min-height: 100vh;
-  background: #f8f8f8;
+  background: #faf8f5 !important; /* Couleur neutre mate de la charte privée */
+  color: #1c1b19; /* Brand charcoal */
+  font-family: 'Inter', sans-serif;
 }
 
 .admin-content {
   flex: 1;
-  padding: 40px;
+  padding: 50px 60px;
+  min-width: 0;
 }
 
-.admin-page h1 {
+.admin-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Zone d'en-tête technique épurée (.admin-page-head) */
+.admin-page-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 24px;
   margin-bottom: 35px;
-  font-size: 2rem;
-  color: #111827;
-  position: relative;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.08); /* Ligne fine d'orfèvre */
 }
 
-.admin-page h1::after {
-  content: "";
-  width: 90px;
-  height: 4px;
-  background: #b8860b;
-  border-radius: 20px;
-  position: absolute;
-  left: 0;
-  bottom: -12px;
+.admin-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #c5a869; /* Marqueur or brossé discret */
+  display: block;
+  margin-bottom: 6px;
 }
 
-.admin-card {
+.admin-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1c1b19;
+  letter-spacing: 0.04em;
+  line-height: tight;
+  margin: 0;
+}
+
+.admin-subtitle {
+  font-size: 13.5px;
+  color: rgba(28, 27, 25, 0.45); /* Teinte charcoal douce atténuée */
+  margin: 8px 0 0 0;
+}
+
+/* Panneau d'encapsulation de la table d'administration (.admin-panel) */
+.admin-table-container.admin-panel {
   background: #ffffff;
-  border-radius: 25px;
-  padding: 35px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(28, 27, 25, 0.06);
+  border-radius: 0px !important; /* Suppression radicale des rondeurs */
+  padding: 24px;
+  box-shadow: 0 18px 40px rgba(28, 27, 25, 0.03);
+  animation: admin-fade-up 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Alignement et confort du loader interne */
+.admin-page-loader-wrap {
+  padding: 60px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+@keyframes admin-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN & CONSOLE SCROLL
+   ========================================================================== */
 
 @media (max-width: 992px) {
-  .admin-layout {
+  .admin-layout.admin-shell {
     flex-direction: column;
   }
 
   .admin-content {
-    padding: 25px;
+    padding: 40px 24px; /* Respiration optimisée sur tablettes et écrans étroits */
   }
 
-  .admin-card {
-    padding: 25px;
+  /* Force un défilement horizontal propre si ton composant enfant OrderTable déborde */
+  .admin-table-container.admin-panel {
+    padding: 16px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
   }
 
-  .admin-page h1 {
-    font-size: 1.7rem;
+  .admin-title {
+    font-size: 1.35rem;
   }
 }

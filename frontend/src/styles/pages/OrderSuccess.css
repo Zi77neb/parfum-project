@@ -1,143 +1,302 @@
-.order-success {
+/* ==========================================================================
+   ORDER SUCCESS — LE REÇU DE SILLAGE HAUTE PARFUMERIE
+   ========================================================================== */
+
+.order-success.marble-bg {
   min-height: 100vh;
-  background: #f8f8f8;
+  /* Fond marbré signature ivoire doux */
+  background-color: var(--brand-ivory, #faf8f5);
+  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(197, 168, 105, 0.07) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(197, 168, 105, 0.04) 0%, transparent 55%);
+  background-attachment: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  padding: 80px 24px;
+  font-family: 'Inter', sans-serif;
 }
 
-.order-success__container {
+/* Grain de papier de soie overlay (.noise-overlay) */
+.order-success.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+/* Panneau Central Éditorial (.surface-panel) */
+.order-success__container.surface-panel {
   width: 100%;
-  max-width: 900px;
-  background: white;
-  border-radius: 30px;
-  padding: 50px;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  max-width: 780px;
+  background: #ffffff;
+  border-radius: 0px !important; /* Pas d'arrondis sur les reçus de prestige */
+  border: 1px solid rgba(197, 168, 105, 0.14);
+  padding: 60px 50px;
+  box-shadow: 0 24px 64px -32px rgba(28, 27, 25, 0.12); /* --theme-shadow-soft */
   text-align: center;
 }
 
+/* Cercle de Confirmation Style Sceau de Cire (.pulse-ring) */
 .order-success__icon {
-  width: 100px;
-  height: 100px;
-  background: #b8860b;
-  color: white;
+  width: 72px;
+  height: 72px;
+  background: #1c1b19; /* Brand charcoal */
+  color: #c5a869; /* Brand gold */
   border-radius: 50%;
-  margin: auto;
-  font-size: 3rem;
+  margin: 0 auto 30px auto;
+  font-size: 1.8rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
 }
 
-.order-success h1 {
-  color: #111827;
-  margin-bottom: 20px;
+.order-success__icon.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(197, 168, 105, 0.35);
+  animation: pulseRing 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-.order-success__message {
-  color: #6b7280;
-  margin-bottom: 40px;
-  font-size: 1.1rem;
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(197, 168, 105, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 16px rgba(197, 168, 105, 0);
+  }
 }
 
-.order-success__card {
+.order-success .luxury-section-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: #c5a869;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Titre Royal Cinzel (.section-title) */
+.order-success .section-title {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  color: #1c1b19;
+  font-size: 2.1rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.gold-divider-center {
+  height: 1px;
+  width: 50px;
+  background-color: #c5a869;
+  margin: 18px auto 0 auto;
+  opacity: 0.6;
+}
+
+.order-success__message.footer-brand-text {
+  margin: 25px auto 45px auto;
+  color: rgba(28, 27, 25, 0.58);
+  font-size: 14px;
+  line-height: 1.7;
+  max-w: 520px;
+  font-weight: 300;
+}
+
+/* Bloc d'Affichage du Bordereau de Commande (.surface-block) */
+.order-success__card.surface-block {
   text-align: left;
-  background: #fafafa;
-  border-radius: 20px;
-  padding: 35px;
-  margin-bottom: 40px;
+  background: #faf8f5; /* Fond ivoire feutré */
+  border: 1px solid rgba(197, 168, 105, 0.12);
+  border-radius: 0px !important;
+  padding: 35px 40px;
+  margin-bottom: 45px;
 }
 
+/* Rangées de Spécifications */
 .order-success__row {
   display: flex;
   justify-content: space-between;
-  padding: 15px 0;
-  border-bottom: 1px solid #ececec;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.05);
 }
 
-.order-success__row span {
-  color: #6b7280;
+.order-success__row.align-center {
+  align-items: center;
+}
+
+.order-success__row .label-gold {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(28, 27, 25, 0.45);
 }
 
 .order-success__row strong {
-  color: #111827;
+  color: #1c1b19;
+  font-size: 13.5px;
+  font-weight: 500;
 }
 
-.order-success__card h3 {
-  margin-top: 35px;
-  margin-bottom: 25px;
-  color: #111827;
+/* Rangée Distincte de Tarification Finale */
+.order-success__row.total-luxury-row {
+  border-bottom: none;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.order-success__row .label-gold.label-total {
+  color: #1c1b19;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.order-success__row .total-value.text-gold-gradient {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #a8894a 0%, #c5a869 35%, #d4bc88 55%, #c5a869 75%, #a8894a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Titre de Sous-Liste des Flacons */
+.order-products-title.font-display {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  margin: 35px 0 0 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #1c1b19;
+}
+
+.order-products-divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(197, 168, 105, 0.2) 0%, transparent 80%);
+  margin: 12px 0 20px 0;
 }
 
 .order-products {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
-.order-product {
-  background: white;
-  border-radius: 15px;
-  padding: 20px;
-  border-left: 5px solid #b8860b;
+/* Cartes de Parfums Individuelles de la Liste (.surface-card) */
+.order-product.surface-card {
+  background: #ffffff;
+  border-radius: 0px !important;
+  border: none;
+  border-bottom: 1px solid rgba(28, 27, 25, 0.04);
+  padding: 16px 0px; /* Supprime le padding latéral pour s'aligner sur les bords */
 }
 
-.order-product h4 {
-  margin-bottom: 10px;
-  color: #111827;
-}
-
-.order-product p {
-  color: #6b7280;
+.order-product__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   margin-bottom: 6px;
 }
 
+.order-product h4.font-display {
+  font-family: 'Cinzel', 'Playfair Display', serif;
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1c1b19;
+}
+
+.order-product__subtotal {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1c1b19;
+}
+
+.order-product__specs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-product p.spec-item {
+  margin: 0;
+  font-size: 12.5px;
+  color: rgba(28, 27, 25, 0.5);
+}
+
+.order-product p.spec-item strong {
+  color: #1c1b19;
+  font-weight: 500;
+}
+
+.spec-dot-separator {
+  width: 3px;
+  height: 3px;
+  background-color: rgba(197, 168, 105, 0.4);
+  border-radius: 999px;
+}
+
+/* Zone d'actions inférieure (Boutons du manifeste) */
 .order-success__actions {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
 }
 
-.order-success__button {
-  text-decoration: none;
-  background: #111827;
-  color: white;
-  padding: 15px 30px;
-  border-radius: 15px;
-  transition: 0.3s;
-  font-weight: 600;
+.order-success__actions .order-success__button {
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 0px !important;
+  cursor: pointer;
+  width: 48%; /* Répartition symétrique */
 }
 
-.order-success__button:hover {
-  transform: translateY(-2px);
-}
-
-.order-success__button--gold {
-  background: #b8860b;
-}
-
-.order-success__button--gold:hover {
-  background: #9c7208;
-}
-
+/* Adaptation Responsive */
 @media (max-width: 768px) {
-  .order-success__container {
-    padding: 35px 25px;
+  .order-success.marble-bg {
+    padding: 40px 16px;
+  }
+
+  .order-success__container.surface-panel {
+    padding: 45px 20px;
+  }
+
+  .order-success .section-title {
+    font-size: 1.65rem;
+  }
+
+  .order-success__card.surface-block {
+    padding: 25px 20px;
   }
 
   .order-success__row {
-    flex-direction: column;
-    gap: 8px;
+    flex-direction: row; /* Maintient l'alignement sur une seule ligne fine */
+    font-size: 12.5px;
   }
 
   .order-success__actions {
     flex-direction: column;
+    gap: 10px;
   }
 
-  .order-success__button {
-    text-align: center;
+  .order-success__actions .order-success__button {
+    width: 100%;
   }
 }
