@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ProductGallery from "../components/product/ProductGallery";
 import ProductFilter from "../components/product/ProductFilter";
 import SearchBar from "../components/common/SearchBar";
@@ -9,23 +10,47 @@ import "../styles/pages/Products.css";
 const API_URL = "http://localhost:8080/api/products";
 
 const Products = () => {
+  const location = useLocation();
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [filters, setFilters] = useState({
-    search: "",
-    categoryId: null,
-    sex: null,
-    minPrice: null,
-    maxPrice: null,
-    newest: false,
+  const [filters, setFilters] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    const categoryIdParam = params.get("categoryId");
+
+    return {
+      search: "",
+      categoryId: categoryIdParam ? Number(categoryIdParam) : null,
+      sex: null,
+      minPrice: null,
+      maxPrice: null,
+      newest: false,
+    };
   });
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryIdParam = params.get("categoryId");
+    const nextCategoryId = categoryIdParam ? Number(categoryIdParam) : null;
+
+    setFilters((prev) => {
+      if (prev.categoryId === nextCategoryId) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        categoryId: nextCategoryId,
+      };
+    });
+  }, [location.search]);
+
+  useEffect(() => {
     fetchProducts();
-  }, [page, filters]);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page, filters.categoryId, filters.sex, filters.search, filters.minPrice, filters.maxPrice, filters.newest]);
 
   const buildQuery = () => {
     const params = new URLSearchParams();
@@ -36,8 +61,12 @@ const Products = () => {
     if (filters.search) params.append("search", filters.search);
     if (filters.categoryId) params.append("categoryId", filters.categoryId);
     if (filters.sex) params.append("sex", filters.sex);
-    if (filters.minPrice) params.append("minPrice", filters.minPrice);
-    if (filters.maxPrice) params.append("maxPrice", filters.maxPrice);
+    if (filters.minPrice !== null && filters.minPrice !== "") {
+      params.append("minPrice", filters.minPrice);
+    }
+    if (filters.maxPrice !== null && filters.maxPrice !== "") {
+      params.append("maxPrice", filters.maxPrice);
+    }
     if (filters.newest) params.append("newest", true);
 
     return params.toString();

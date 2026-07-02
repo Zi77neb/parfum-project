@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Products from "./pages/Products";
@@ -21,6 +21,9 @@ import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 
 export default function AppRoutes() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith("/admin");
+
   return (
     <>
       <Navbar />
@@ -45,7 +48,7 @@ export default function AppRoutes() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   );
 }

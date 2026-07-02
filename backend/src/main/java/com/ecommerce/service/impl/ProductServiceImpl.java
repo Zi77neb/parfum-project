@@ -6,13 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.dto.product.ProductFilterRequest;
 import com.ecommerce.dto.product.ProductRequest;
 import com.ecommerce.dto.product.ProductResponse;
-import com.ecommerce.dto.product.ProductSummaryResponse;
 import com.ecommerce.dto.product.ProductVariantRequest;
 import com.ecommerce.entity.Category;
 import com.ecommerce.entity.Product;
@@ -102,6 +103,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponse updateProduct(Long id, ProductRequest request) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() ->
@@ -109,18 +111,28 @@ public class ProductServiceImpl implements ProductService {
                                 "Produit introuvable avec l'id : " + id
                         ));
 
-        Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Catégorie introuvable"));
+        if (request.getName() != null && !request.getName().isBlank()) {
+            product.setName(request.getName());
+        }
 
-        product.setName(request.getName());
-        product.setDescription(request.getDescription());
-        product.setSex(request.getSex());
-        product.setCategory(category);
+        if (request.getDescription() != null) {
+            product.setDescription(request.getDescription());
+        }
 
-        product.getVariants().clear();
+        if (request.getSex() != null) {
+            product.setSex(request.getSex());
+        }
+
+        if (request.getCategoryId() != null && request.getCategoryId() > 0) {
+            Category category = categoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(() ->
+                            new ResourceNotFoundException("Catégorie introuvable"));
+            product.setCategory(category);
+        }
 
         if (request.getVariants() != null) {
+            product.getVariants().clear();
+
             for (ProductVariantRequest variantRequest : request.getVariants()) {
                 ProductVariant variant = new ProductVariant();
                 variant.setSize(variantRequest.getSize());
@@ -135,6 +147,7 @@ public class ProductServiceImpl implements ProductService {
 
             List<ProductImage> images = request.getImageUrls()
                     .stream()
+                    .filter(url -> url != null && !url.isBlank())
                     .map(url -> {
                         ProductImage image = new ProductImage();
                         image.setImageUrl(url);
@@ -144,11 +157,13 @@ public class ProductServiceImpl implements ProductService {
                     })
                     .collect(Collectors.toList());
 
+            for (ProductImage image : images) {
+                product.addImage(image);
+            }
+
             if (!images.isEmpty()) {
                 images.get(0).setPrimary(true);
             }
-
-            product.setImages(images);
         }
 
         return productMapper.toResponse(productRepository.save(product));
@@ -166,10 +181,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductSummaryResponse> getLatestProducts() {
-        return productRepository.findTop10ByOrderByCreatedAtDesc()
+    public List<ProductResponse> getLatestProducts() {
+        return productRepository.findAll(
+                        PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "createdAt")))
                 .stream()
-                .map(productMapper::toSummary)
+                .map(productMapper::toResponse)
                 .collect(Collectors.toList());
     }
 }

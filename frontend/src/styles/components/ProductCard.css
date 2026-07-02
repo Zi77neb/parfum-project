@@ -21,7 +21,7 @@
 .product-card__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 4.8; /* Silhouette élancée pour les flacons */
+  aspect-ratio: 4 / 4.4;
   background: #fdfcfb;
   overflow: hidden;
   cursor: pointer;
@@ -75,7 +75,7 @@
 
 /* Contenu textuel de la fiche */
 .product-card__content {
-  padding: 24px;
+  padding: 18px 18px 20px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -94,11 +94,11 @@
 .product-card .showroom-card__title {
   font-family: 'Cinzel', 'Playfair Display', serif;
   color: #1c1b19;
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.25;
   letter-spacing: 0.02em;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   cursor: pointer;
   transition: color 0.3s ease;
 }
@@ -110,10 +110,10 @@
 .product-card .showroom-card__price {
   font-family: 'Cinzel', 'Playfair Display', serif;
   color: #1c1b19;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  margin: 0 0 24px 0;
+  margin: 0 0 16px 0;
 }
 
 /* Grille d'actions de la carte */
@@ -132,8 +132,8 @@
 
 /* Bouton Découvrir (btn-secondary-flat) */
 .product-card .btn-secondary-flat {
-  height: 42px;
-  padding: 0 16px;
+  height: 38px;
+  padding: 0 14px;
   background: rgba(28, 27, 25, 0.04);
   border: none;
   color: #1c1b19;
@@ -150,26 +150,28 @@
   color: #a8894a;
 }
 
-/* Bouton Panier/Taille (btn-dark) */
-.product-card .btn-dark {
+/* Bouton Panier/Taille (style identique au bouton Découvrir) */
+.product-card .btn-secondary-flat {
   width: 100%;
-  height: 42px;
-  background: #a8894a;
+  height: 38px;
+  padding: 0 14px;
+  background: rgba(28, 27, 25, 0.04);
   border: none;
-  color: #faf8f5;
+  color: #1c1b19;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.product-card .btn-dark:hover:not(:disabled) {
-  background: #32302e;
+.product-card .btn-secondary-flat:hover:not(:disabled) {
+  background: rgba(101, 91, 69, 0.14);
+  color: #a8894a;
 }
 
-.product-card .btn-dark:disabled {
+.product-card .btn-secondary-flat:disabled {
   background: rgba(28, 27, 25, 0.06);
   color: rgba(28, 27, 25, 0.3);
   cursor: not-allowed;

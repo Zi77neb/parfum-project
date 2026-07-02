@@ -151,20 +151,70 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public OrderResponse updateOrderStatus(Long id,
-                                           UpdateOrderStatusRequest request) {
-        Order order = orderRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Commande introuvable avec l'id : " + id
-                        )
-                );
+  @Override
+@Transactional
+public OrderResponse updateOrderStatus(Long id,
+                                       UpdateOrderStatusRequest request) {
 
-        order.setStatus(request.getStatus());
+    Order order = orderRepository.findById(id)
+            .orElseThrow(() ->
+                    new ResourceNotFoundException(
+                            "Commande introuvable avec l'id : " + id
+                    )
+            );
 
-        return orderMapper.toResponse(orderRepository.save(order));
+    OrderStatus ancienStatut = order.getStatus();
+    OrderStatus nouveauStatut = request.getStatus();
+
+    // Rien à faire si le statut est identique
+    if (ancienStatut == nouveauStatut) {
+        return orderMapper.toResponse(order);
     }
+
+    // Une commande livrée ne peut plus être modifiée
+    if (ancienStatut == OrderStatus.LIVREE) {
+        throw new BadRequestException(
+                "Une commande livrée ne peut plus être modifiée."
+        );
+    }
+
+    // Une commande déjà annulée ne peut plus changer
+    if (ancienStatut == OrderStatus.ANNULEE) {
+        throw new BadRequestException(
+                "Cette commande est déjà annulée."
+        );
+    }
+
+    // Remettre le stock uniquement lors de l'annulation
+    if (nouveauStatut == OrderStatus.ANNULEE) {
+
+        for (OrderItem item : order.getItems()) {
+
+            ProductVariant variant = productVariantRepository
+                    .findByProductIdAndSize(
+                            item.getProduct().getId(),
+                            item.getSize()
+                    )
+                    .orElseThrow(() ->
+                            new ResourceNotFoundException(
+                                    "Variant introuvable pour le produit : "
+                                            + item.getProduct().getName()
+                            ));
+
+            variant.setStock(
+                    variant.getStock() + item.getQuantity()
+            );
+
+            productVariantRepository.save(variant);
+        }
+    }
+
+    order.setStatus(nouveauStatut);
+
+    order = orderRepository.save(order);
+
+    return orderMapper.toResponse(order);
+}
 
     private Customer createCustomerFromCheckout(
             CheckoutRequest request

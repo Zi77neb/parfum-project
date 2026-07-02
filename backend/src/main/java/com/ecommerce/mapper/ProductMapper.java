@@ -31,6 +31,11 @@ public class ProductMapper {
         response.setDescription(product.getDescription());
         response.setSex(product.getSex());
         response.setCreatedAt(product.getCreatedAt());
+        response.setCategoryId(
+                product.getCategory() != null
+                        ? product.getCategory().getId()
+                        : null
+        );
         response.setCategoryName(
                 product.getCategory() != null
                         ? product.getCategory().getName()

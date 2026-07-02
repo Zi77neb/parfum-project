@@ -5,7 +5,7 @@
 .site-footer.footer-shell {
   position: relative;
   overflow: hidden;
-  margin-top: 100px;
+  margin-top: 0;
   background-color: #1c1b19; /* Charcoal de marque */
   color: #faf8f5; /* Ivoire de marque */
   font-family: 'Inter', sans-serif;
@@ -24,35 +24,6 @@
   z-index: 2;
 }
 
-/* Fond texturé réseau de points d'orfèvre */
-.site-footer__grid {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: radial-gradient(rgba(197, 168, 105, 0.15) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* Mesh de lumière dorée subtile en arrière-plan */
-.site-footer__mesh {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle at 85% 72%, rgba(197, 168, 105, 0.08) 0%, transparent 50%);
-  opacity: 1;
-}
-
-/* Estompe éditoriale */
-.site-footer__fade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(28, 27, 25, 0.28) 0%, transparent 100%);
-}
 
 /* Layout en grille 3 colonnes symétriques */
 .site-footer__inner {
@@ -97,7 +68,7 @@
   font-weight: 300;
   line-height: 1.75;
   color: rgba(250, 248, 245, 0.76); /* --theme-footer-text-muted */
-  max-w: 380px;
+  max-width: 380px;
 }
 
 .site-footer__text.italic-note {
@@ -184,7 +155,7 @@
 }
 
 .site-footer__bar-inner {
-  max-w: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 24px 40px;
   display: flex;

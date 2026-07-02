@@ -1,5 +1,7 @@
 package com.ecommerce.specification;
 
+import java.math.BigDecimal;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import com.ecommerce.dto.product.ProductFilterRequest;
@@ -7,6 +9,8 @@ import com.ecommerce.entity.Product;
 
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 
 public class ProductSpecification {
 
@@ -58,18 +62,36 @@ public class ProductSpecification {
                 );
             }
 
-            if (filter.getMinPrice() != null) {
-                predicate = criteriaBuilder.and(
-                        predicate,
-                        criteriaBuilder.greaterThanOrEqualTo(root.get("price"), filter.getMinPrice())
-                );
-            }
+            if (filter.getMinPrice() != null || filter.getMaxPrice() != null) {
+                query.distinct(true);
 
-            if (filter.getMaxPrice() != null) {
-                predicate = criteriaBuilder.and(
-                        predicate,
-                        criteriaBuilder.lessThanOrEqualTo(root.get("price"), filter.getMaxPrice())
-                );
+                if (filter.getMinPrice() != null) {
+                    Subquery<BigDecimal> minPriceSubquery = query.subquery(BigDecimal.class);
+                    Root<Product> minPriceRoot = minPriceSubquery.from(Product.class);
+                    Join<Object, Object> minVariantsJoin = minPriceRoot.join("variants");
+
+                    minPriceSubquery.select(criteriaBuilder.min(minVariantsJoin.get("price")))
+                            .where(criteriaBuilder.equal(minPriceRoot.get("id"), root.get("id")));
+
+                    predicate = criteriaBuilder.and(
+                            predicate,
+                            criteriaBuilder.greaterThanOrEqualTo(minPriceSubquery, filter.getMinPrice())
+                    );
+                }
+
+                if (filter.getMaxPrice() != null) {
+                    Subquery<BigDecimal> maxPriceSubquery = query.subquery(BigDecimal.class);
+                    Root<Product> maxPriceRoot = maxPriceSubquery.from(Product.class);
+                    Join<Object, Object> maxVariantsJoin = maxPriceRoot.join("variants");
+
+                    maxPriceSubquery.select(criteriaBuilder.max(maxVariantsJoin.get("price")))
+                            .where(criteriaBuilder.equal(maxPriceRoot.get("id"), root.get("id")));
+
+                    predicate = criteriaBuilder.and(
+                            predicate,
+                            criteriaBuilder.lessThanOrEqualTo(maxPriceSubquery, filter.getMaxPrice())
+                    );
+                }
             }
 
             if (Boolean.TRUE.equals(filter.getNewest())) {

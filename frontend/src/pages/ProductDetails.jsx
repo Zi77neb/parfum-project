@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const [product, setProduct] = useState(null);
   const [selectedVariant, setSelectedVariant] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [justAdded, setJustAdded] = useState(false);
 
   useEffect(() => {
     fetchProduct();
@@ -27,8 +28,11 @@ const ProductDetails = () => {
       const data = await res.json();
       setProduct(data);
 
-      const firstAvailable =
-        data.variants?.find((v) => v.stock > 0) || data.variants?.[0];
+      const variants = Array.isArray(data.variants) ? data.variants : [];
+      const firstAvailable = variants.find((variant) => {
+        const stock = Number(variant?.stock ?? 0);
+        return Number.isFinite(stock) && stock > 0;
+      }) || variants[0] || null;
 
       setSelectedVariant(firstAvailable);
     } catch (err) {
@@ -67,7 +71,8 @@ const ProductDetails = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert("La fragrance a rejoint votre sélection.");
+    setJustAdded(true);
+    window.setTimeout(() => setJustAdded(false), 1200);
   };
 
   if (loading) {
@@ -125,7 +130,7 @@ const ProductDetails = () => {
                 <button
                   key={variant.id}
                   onClick={() => setSelectedVariant(variant)}
-                  disabled={variant.stock <= 0}
+                  disabled={Number(variant?.stock ?? 0) <= 0}
                   className={`option-card ${isSelected ? "option-card--active" : ""}`}
                 >
                   <div className="option-card__icon font-sans">ml</div>
@@ -145,17 +150,19 @@ const ProductDetails = () => {
               </div>
 
               <div className="product-detail__stock-wrap">
-                <span className={`editorial-pill ${selectedVariant.stock > 0 ? "editorial-pill--available" : "editorial-pill--unavailable"}`}>
-                  {selectedVariant.stock > 0 ? `En Atelier (${selectedVariant.stock} flacons)` : "Édition épuisée"}
+                <span className={`editorial-pill ${Number(selectedVariant?.stock ?? 0) > 0 ? "editorial-pill--available" : "editorial-pill--unavailable"}`}>
+                  {Number(selectedVariant?.stock ?? 0) > 0 ? `En Atelier (${selectedVariant.stock} flacons)` : "Édition épuisée"}
                 </span>
               </div>
 
               <button
                 className="luxury-cta shine-on-hover product-detail__button"
                 onClick={addToCart}
-                disabled={selectedVariant.stock <= 0}
+                disabled={Number(selectedVariant?.stock ?? 0) <= 0}
               >
-                <span className="luxury-cta__inner">Ajouter au Flaconnier</span>
+                <span className="luxury-cta__inner">
+                  {justAdded ? "Ajouté au Flaconnier" : "Ajouter au Flaconnier"}
+                </span>
                 <span className="luxury-cta__shine"></span>
               </button>
             </div>

@@ -12,6 +12,7 @@ public class ProductResponse {
     private String description;
     private Sex sex;
     private LocalDateTime createdAt;
+    private Long categoryId;
     private String categoryName;
     private List<String> imageUrls;
     private List<ProductVariantResponse> variants;
@@ -54,6 +55,14 @@ public class ProductResponse {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {

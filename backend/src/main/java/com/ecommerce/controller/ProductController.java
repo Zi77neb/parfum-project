@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.dto.product.ProductFilterRequest;
 import com.ecommerce.dto.product.ProductRequest;
 import com.ecommerce.dto.product.ProductResponse;
-import com.ecommerce.dto.product.ProductSummaryResponse;
 import com.ecommerce.mapper.ProductMapper;
 import com.ecommerce.repository.ProductRepository;
 import com.ecommerce.service.ProductService;
@@ -47,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/latest")
-    public ResponseEntity<List<ProductSummaryResponse>>
+    public ResponseEntity<List<ProductResponse>>
     getLatestProducts() {
         return ResponseEntity.ok(
                 productService.getLatestProducts()

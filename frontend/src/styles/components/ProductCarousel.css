@@ -10,8 +10,45 @@
 }
 
 .product-carousel__header {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   text-align: center;
+}
+
+.product-carousel__track-wrapper {
+  position: relative;
+  padding: 6px 0 24px;
+}
+
+.product-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(197, 168, 105, 0.35);
+  background: rgba(255, 255, 255, 0.95);
+  color: #1c1b19;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 24px rgba(28, 27, 25, 0.12);
+}
+
+.product-carousel__arrow:hover {
+  background: #1c1b19;
+  color: #fff;
+  border-color: #1c1b19;
+}
+
+.product-carousel__arrow--left {
+  left: 6px;
+}
+
+.product-carousel__arrow--right {
+  right: 6px;
 }
 
 .product-carousel .luxury-section-label {
@@ -55,7 +92,6 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   padding: 20px 8px 40px 8px;
-  snap-type: x mandatory; /* Verrouillage de défilement fluide par carte */
 }
 
 /* Barre de défilement Or Brossé Ultra-Fine stylisée */
@@ -78,9 +114,7 @@
 
 /* Unité de Carte Parfum Individuelle (.showroom-card--lookbook) */
 .product-carousel__item {
-  flex: 0 0 320px; /* Largeur de flacon optimale standardisée */
-  snap-align: start;
-  scroll-snap-stop: always;
+  flex: 0 0 260px;
 }
 
 /* État Vide Poétique (.footer-empty) */
@@ -106,7 +140,7 @@
   }
 
   .product-carousel__item {
-    flex: 0 0 280px; /* Redimensionnement proportionnel sur tablettes */
+    flex: 0 0 230px;
   }
 }
 
@@ -120,12 +154,17 @@
     letter-spacing: 0.02em;
   }
 
+  .product-carousel__arrow {
+    width: 40px;
+    height: 40px;
+  }
+
   .product-carousel__track {
     gap: 20px;
     padding-bottom: 25px;
   }
 
   .product-carousel__item {
-    flex: 0 0 240px; /* Format compact pour écrans mobiles */
+    flex: 0 0 210px;
   }
 }

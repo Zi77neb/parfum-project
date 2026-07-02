@@ -4,6 +4,9 @@ import "../../styles/components/ProductCard.css";
 
 const ProductCard = ({ product }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showCartModal, setShowCartModal] = useState(false);
+  const [selectedVariant, setSelectedVariant] = useState(null);
+  const [justAdded, setJustAdded] = useState(false);
 
   const image =
     product.primaryImageUrl ||
@@ -12,11 +15,57 @@ const ProductCard = ({ product }) => {
 
   const minPrice = product.minPrice ?? product.variants?.[0]?.price;
   const maxPrice = product.maxPrice ?? product.variants?.[0]?.price;
-  const hasStock = product.variants?.some((v) => v.stock > 0) ?? false;
+  const hasStock = (product.variants || []).some((variant) => {
+    const stock = Number(variant?.stock ?? 0);
+    return Number.isFinite(stock) && stock > 0;
+  });
 
   const imageUrl = image.startsWith("/uploads")
     ? `http://localhost:8080${image}`
     : image;
+
+  React.useEffect(() => {
+    if (!product?.variants?.length) return;
+
+    const firstAvailable = product.variants.find((variant) => {
+      const stock = Number(variant?.stock ?? 0);
+      return Number.isFinite(stock) && stock > 0;
+    }) || product.variants[0] || null;
+
+    setSelectedVariant(firstAvailable);
+  }, [product]);
+
+  const addToCart = () => {
+    if (!selectedVariant) return;
+
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    const existing = cart.find(
+      (item) => item.productId === product.id && item.variantId === selectedVariant.id
+    );
+
+    if (existing) {
+      if (existing.quantity < selectedVariant.stock) {
+        existing.quantity += 1;
+      }
+    } else {
+      cart.push({
+        productId: product.id,
+        variantId: selectedVariant.id,
+        name: product.name,
+        size: selectedVariant.size,
+        price: selectedVariant.price,
+        quantity: 1,
+        stock: selectedVariant.stock,
+        imageUrls: product.imageUrls,
+        primaryImageUrl: product.imageUrls?.[0] || null,
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setJustAdded(true);
+    window.setTimeout(() => setJustAdded(false), 1200);
+  };
 
   return (
     <>
@@ -55,14 +104,104 @@ const ProductCard = ({ product }) => {
               Découvrir
             </button>
 
-            <Link to={`/products/${product.id}`} className="product-card__action-link">
-              <button className="btn-dark" disabled={!hasStock}>
-                {hasStock ? "Choisir un volume" : "Indisponible"}
-              </button>
-            </Link>
+            <button
+              className="btn-secondary-flat"
+              disabled={!hasStock}
+              onClick={() => setShowCartModal(true)}
+            >
+              {hasStock ? "Ajouter au panier" : "Indisponible"}
+            </button>
           </div>
         </div>
       </div>
+
+      {showCartModal && (
+        <div
+          className="product-modal-backdrop vehicle-booking-sheet-backdrop"
+          onClick={() => setShowCartModal(false)}
+        >
+          <div
+            className="product-modal-content surface-panel"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="product-modal__close hero-sheet-close"
+              onClick={() => setShowCartModal(false)}
+              aria-label="Fermer"
+            >
+              ✕
+            </button>
+
+            <div className="product-modal__layout">
+              <div className="product-modal__gallery">
+                <img src={imageUrl} alt={product.name} className="product-modal__img" />
+              </div>
+
+              <div className="product-modal__details-panel">
+                <span className="luxury-section-label">{product.categoryName}</span>
+                <h2 className="product-modal__title font-display">{product.name}</h2>
+                <div className="gold-divider-subtle"></div>
+
+                <div className="product-modal__info-row">
+                  <p className="product-modal__description">
+                    {product.description || "Le parfum sélectionné peut être ajouté au panier depuis la page de détail pour finaliser votre commande."}
+                  </p>
+                </div>
+
+                <div className="product-modal__price-box">
+                  <span className="label-gold">Prix</span>
+                  <p className="product-modal__price text-gold-gradient">
+                    {selectedVariant
+                      ? `${selectedVariant.price} DH`
+                      : minPrice === maxPrice
+                        ? `${minPrice} DH`
+                        : `${minPrice} - ${maxPrice} DH`}
+                  </p>
+                </div>
+
+                {product.variants?.length > 0 && (
+                  <div className="product-detail__variants">
+                    {product.variants.map((variant) => {
+                      const isSelected = selectedVariant?.id === variant.id;
+                      return (
+                        <button
+                          key={variant.id}
+                          type="button"
+                          onClick={() => setSelectedVariant(variant)}
+                          disabled={Number(variant?.stock ?? 0) <= 0}
+                          className={`option-card ${isSelected ? "option-card--active" : ""}`}
+                        >
+                          <div className="option-card__icon font-sans">ml</div>
+                          <span className="variant-size-text font-sans">{variant.size}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <div className="product-modal__status-box">
+                  <span className={`editorial-pill ${hasStock ? "editorial-pill--available" : "editorial-pill--unavailable"}`}>
+                    {hasStock ? "Disponible pour ajout au panier" : "Édition temporairement épuisée"}
+                  </span>
+                </div>
+
+                <button
+                  className="luxury-cta shine-on-hover"
+                  disabled={!selectedVariant || Number(selectedVariant?.stock ?? 0) <= 0}
+                  onClick={() => {
+                    addToCart();
+                    setShowCartModal(false);
+                  }}
+                >
+                  <span className="luxury-cta__inner">
+                    {justAdded ? "Ajouté au panier" : "Ajouter au panier"}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Fenêtre de Détails Épurée — Style Galerie Privée */}
       {showDetails && (

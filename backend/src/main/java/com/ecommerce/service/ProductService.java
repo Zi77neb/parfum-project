@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import com.ecommerce.dto.product.ProductFilterRequest;
 import com.ecommerce.dto.product.ProductRequest;
 import com.ecommerce.dto.product.ProductResponse;
-import com.ecommerce.dto.product.ProductSummaryResponse;
 
 public interface ProductService {
 
@@ -21,5 +20,5 @@ public interface ProductService {
 
     void deleteProduct(Long id);
 
-    List<ProductSummaryResponse> getLatestProducts();
+    List<ProductResponse> getLatestProducts();
 }

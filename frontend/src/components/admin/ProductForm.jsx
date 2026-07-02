@@ -131,6 +131,15 @@ const ProductForm = ({
     return [data.url];
   };
 
+  const normalizeVariants = () =>
+    form.variants
+      .filter((variant) => variant.size || variant.price || variant.stock)
+      .map((variant) => ({
+        size: variant.size,
+        price: Number(variant.price),
+        stock: Number(variant.stock),
+      }));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -140,16 +149,52 @@ const ProductForm = ({
       const token = localStorage.getItem("token");
       const imageUrls = await uploadImage();
 
-      const payload = {
-        ...form,
-        categoryId: Number(form.categoryId),
-        imageUrls,
-        variants: form.variants.map((v) => ({
-          size: v.size,
-          price: Number(v.price),
-          stock: Number(v.stock),
-        })),
-      };
+      const normalizedVariants = normalizeVariants();
+
+      const payload = product
+        ? (() => {
+            const nextPayload = {};
+
+            if (form.name !== (product.name || "")) {
+              nextPayload.name = form.name;
+            }
+
+            if (form.description !== (product.description || "")) {
+              nextPayload.description = form.description;
+            }
+
+            if (form.sex !== (product.sex || "")) {
+              nextPayload.sex = form.sex;
+            }
+
+            if (form.categoryId && Number(form.categoryId) !== Number(product.categoryId || 0)) {
+              nextPayload.categoryId = Number(form.categoryId);
+            }
+
+            if (imageFile) {
+              nextPayload.imageUrls = imageUrls;
+            } else if (form.imageUrls && form.imageUrls.length > 0) {
+              nextPayload.imageUrls = form.imageUrls;
+            }
+
+            const originalVariants = (product.variants || []).map((v) => ({
+              size: v.size,
+              price: Number(v.price),
+              stock: Number(v.stock),
+            }));
+
+            if (JSON.stringify(normalizedVariants) !== JSON.stringify(originalVariants)) {
+              nextPayload.variants = normalizedVariants;
+            }
+
+            return nextPayload;
+          })()
+        : {
+            ...form,
+            categoryId: Number(form.categoryId),
+            imageUrls,
+            variants: normalizedVariants,
+          };
 
       const res = await fetch(
         product ? `${API_URL}/products/${product.id}` : `${API_URL}/products`,
@@ -197,7 +242,7 @@ const ProductForm = ({
           name="name" 
           value={form.name} 
           onChange={handleChange} 
-          required 
+          required={!product}
         />
       </div>
 
@@ -223,7 +268,7 @@ const ProductForm = ({
 
         <div className="form-field">
           <label className="label-gold">Collection / Catégorie</label>
-          <select className="input-luxury" name="categoryId" value={form.categoryId} onChange={handleChange} required>
+          <select className="input-luxury" name="categoryId" value={form.categoryId} onChange={handleChange} required={!product}>
             <option value="">Choisir une collection</option>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>

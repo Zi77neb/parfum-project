@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import ProductCard from "./ProductCard";
 import "../../styles/components/ProductCarousel.css";
 
 const ProductCarousel = ({ products = [], title = "Nouveautés Flacons" }) => {
+  const trackRef = useRef(null);
+
+  const scrollByAmount = (direction) => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstItem = track.querySelector(".product-carousel__item");
+    if (!firstItem) return;
+
+    const itemWidth = firstItem.getBoundingClientRect().width;
+    const gap = 32;
+    const amount = itemWidth + gap;
+
+    track.scrollBy({
+      left: direction === "next" ? amount : -amount,
+      behavior: "smooth",
+    });
+  };
   if (!products.length) {
     return (
       <div className="product-carousel product-carousel--empty text-center">
@@ -21,16 +39,35 @@ const ProductCarousel = ({ products = [], title = "Nouveautés Flacons" }) => {
         <div className="gold-divider"></div>
       </div>
 
-      {/* Le conteneur à défilement horizontal fluide de type showroom lookbook */}
-      <div className="product-carousel__track scrollbar-hide">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="product-carousel__item showroom-card--lookbook"
-          >
-            <ProductCard product={product} />
-          </div>
-        ))}
+      <div className="product-carousel__track-wrapper">
+        <button
+          type="button"
+          className="product-carousel__arrow product-carousel__arrow--left"
+          onClick={() => scrollByAmount("prev")}
+          aria-label="Produits précédents"
+        >
+          ←
+        </button>
+
+        <div className="product-carousel__track scrollbar-hide" ref={trackRef}>
+          {products.map((product) => (
+            <div
+              key={product.id}
+              className="product-carousel__item showroom-card--lookbook"
+            >
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          className="product-carousel__arrow product-carousel__arrow--right"
+          onClick={() => scrollByAmount("next")}
+          aria-label="Produits suivants"
+        >
+          →
+        </button>
       </div>
     </div>
   );
